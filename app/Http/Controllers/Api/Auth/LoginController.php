@@ -8,6 +8,7 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use function App\Helpers\responseJson;
 
 class LoginController extends Controller
 {
@@ -23,6 +24,10 @@ class LoginController extends Controller
             throw ValidationException::withMessages(['phone' => __('auth.failed')]);
         }
         $token = $client->createToken($client->phone)->plainTextToken;
+        return responseJson(data: [
+            'token' => $token,
+            'client' => $client
+        ]);
 
 
     }

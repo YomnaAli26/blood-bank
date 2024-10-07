@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Http\Requests\Base\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
+
 
 class RegisterRequest extends FormRequest
 {
@@ -23,10 +25,11 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:clients'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:clients,email'],
+            'phone' => ['required', 'string', 'max:255', 'unique:clients,phone'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'b_o_d' => ['required', 'date'],
-            'last_donation_date' => ['required', 'date'],
+            'b_o_d' => ['required', 'date','before_or_equal:today'],
+            'last_donation_date' => ['required', 'date','before_or_equal:today'],
             'city_id' => ['required', 'exists:cities,id'],
             'blood_type_id' => ['required', 'exists:blood_types,id'],
         ];

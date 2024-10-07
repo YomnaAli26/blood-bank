@@ -40,7 +40,7 @@ class MainController extends Controller
     }
     public function bloodTypes(): JsonResponse
     {
-        $bloodTypes = BloodType::paginate(10);
+        $bloodTypes = BloodType::all();
         return responseJson(1, "success", $bloodTypes);
     }
 

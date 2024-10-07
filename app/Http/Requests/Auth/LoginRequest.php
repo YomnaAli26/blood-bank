@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Http\Requests\Base\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
@@ -22,7 +23,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone'=>['required','numeric','digits:11','unique:users,phone'],
+            'phone'=>['required','numeric'],
             'password'=>['required','string','min:8','max:30'],
         ];
     }

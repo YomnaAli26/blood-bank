@@ -12,7 +12,10 @@ class Client extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
 
-    protected $fillable = array('name', 'email', 'phone', 'password', 'code', 'b_o_d', 'last_donation_date', 'city_id','blood_type_id');
+    protected $fillable = array('name', 'email', 'phone', 'password', 'code', 'b_o_d', 'last_donation_date', 'city_id', 'blood_type_id');
+    protected $hidden = [
+        'password'
+    ];
 
     public function bloodType(): BelongsTo
     {
@@ -47,6 +50,12 @@ class Client extends Authenticatable
     public function governorates(): BelongsToMany
     {
         return $this->belongsToMany(Governorate::class);
+    }
+
+    public function generateCode(): void
+    {
+        $this->code = rand(0000, 9999);
+        $this->save();
     }
 
 }
