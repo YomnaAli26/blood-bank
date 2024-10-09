@@ -58,4 +58,10 @@ class Client extends Authenticatable
         $this->save();
     }
 
+    public function resetCode()
+    {
+        $this->code = null;
+        $this->save();
+    }
+
 }
