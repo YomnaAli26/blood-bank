@@ -10,6 +10,7 @@ use App\Models\Governorate;
 use App\Models\Setting;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use function App\Helpers\responseJson;
 
 class MainController extends Controller
@@ -34,15 +35,29 @@ class MainController extends Controller
 
     public function settings(): JsonResponse
     {
-        $settings = Setting::query()->pluck('value', 'key')->toArray();
+        $settings = Cache::remember('settings', 60 * 60, function () {
+            return Setting::query()->pluck('value', 'key')->toArray();
+        });
         return responseJson(1, "success", $settings);
 
     }
+
     public function bloodTypes(): JsonResponse
     {
-        $bloodTypes = BloodType::all();
+        $bloodTypes = Cache::remember('bloodTypes', 60 * 60, function () {
+            return BloodType::all();
+        });
         return responseJson(1, "success", $bloodTypes);
     }
 
+    public function notificationsSettings(Request $request)
+    {
+        $request->validate([
+           'blood_types'=>['required','array'],
+           'governorates'=>['required','array']
+        ]);
+        $request->user()->governorates()->detach();
+        $request->user()->governorates()->attach();
+    }
 
 }

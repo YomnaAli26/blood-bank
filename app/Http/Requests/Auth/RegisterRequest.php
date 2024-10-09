@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:clients,email'],
-            'phone' => ['required', 'regex:/^\+?[0-9]+$/','max:20', 'unique:clients,phone'],
+            'phone' => ['required', 'regex:/^\+2[0-9]{9,18}$/','max:20', 'unique:clients,phone'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'b_o_d' => ['required', 'date','before_or_equal:today'],
             'last_donation_date' => ['required', 'date','before_or_equal:today'],

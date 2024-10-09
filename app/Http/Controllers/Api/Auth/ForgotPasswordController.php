@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\ForgotPassword;
 use App\Models\Client;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use function App\Helpers\responseJson;
@@ -15,7 +16,7 @@ class ForgotPasswordController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): JsonResponse
     {
         $request->validate([
             'phone' => ['required','exists:clients,phone'],
@@ -23,7 +24,7 @@ class ForgotPasswordController extends Controller
         $client = Client::query()->wherePhone($request->phone)->first();
         $client->generateCode();
 
-        //Send otp using mail(gmail & mailtrap)
+        //Send otp using mail(gmail || mailtrap)
         Mail::to($client->email)
         ->bcc("yomnaali463@gmail.com")
        -> send(new ForgotPassword($client));

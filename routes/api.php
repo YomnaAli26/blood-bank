@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\Auth\{RegisterController,LoginController,ForgotPasswordController,ResetPasswordController};
+use App\Http\Controllers\Api\Auth\{RegisterController,LoginController,
+    ForgotPasswordController,ResetPasswordController,LogoutController};
 use App\Http\Controllers\Api\{MainController,ProfileController};
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +14,9 @@ Route::group(['prefix' => 'v1/'], function () {
     Route::patch('reset-password', ResetPasswordController::class);
 
     Route::middleware('auth:sanctum')->group(function () {
+        Route::post('logout', LogoutController::class);
         Route::put('/edit-profile/{client}', ProfileController::class);
+        Route::post('/notifications-settings', [MainController::class,'notificationsSettings']);
         Route::get('/governorates', [MainController::class, 'governorates']);
         Route::get('/cities', [MainController::class, 'cities']);
         Route::get('/settings', [MainController::class, 'settings']);

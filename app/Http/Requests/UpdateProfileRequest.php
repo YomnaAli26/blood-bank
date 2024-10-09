@@ -23,14 +23,14 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('clients','email')->ignore($this->client)],
-            'blood_type_id' => ['required','exists:blood_types,id'],
-            'phone' => ['required', 'regex:/^\+?[0-9]+$/','max:20', Rule::unique('clients','phone')->ignore($this->client)],
-            'b_o_d' => ['required','date','before_or_equal:today'],
-            'last_donation_date' =>  ['required','date','before_or_equal:today'],
-            'city_id' => ['required','exists:cities,id'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name' => ['string', 'max:255'],
+            'email' => ['string', 'email', 'max:255', Rule::unique('clients', 'email')->ignore($this->client)],
+            'blood_type_id' => ['exists:blood_types,id'],
+            'phone' => ['regex:/^\+?[0-9]+$/', 'max:20', Rule::unique('clients', 'phone')->ignore($this->client)],
+            'b_o_d' => ['date', 'before_or_equal:today'],
+            'last_donation_date' => ['date', 'before_or_equal:today'],
+            'city_id' => ['exists:cities,id'],
+            'password' => ['string', 'min:8', 'confirmed'],
 
         ];
     }
