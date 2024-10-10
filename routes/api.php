@@ -17,8 +17,10 @@ Route::group(['prefix' => 'v1/'], function () {
         Route::post('logout', LogoutController::class);
         Route::put('/edit-profile/{client}', ProfileController::class);
         Route::post('/notifications-settings', [MainController::class,'notificationsSettings']);
+        Route::post('/contact-us', [MainController::class,'contactUs']);
         Route::get('/governorates', [MainController::class, 'governorates']);
         Route::get('/cities', [MainController::class, 'cities']);
+        Route::get('/categories', [MainController::class, 'categories']);
         Route::get('/settings', [MainController::class, 'settings']);
         Route::get('/blood-types', [MainController::class, 'bloodTypes']);
     });

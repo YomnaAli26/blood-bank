@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Models\Client;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,14 +16,9 @@ class ResetPasswordController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(ResetPasswordRequest $request): JsonResponse
     {
 
-        $request->validate([
-            'code' => ['required','exists:clients,code'],
-            'phone' => ['required','exists:clients,phone'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
         $client = Client::wherePhone($request->phone)->first();
         if ($request->code != $client->code)
         {
@@ -31,7 +27,7 @@ class ResetPasswordController extends Controller
             ]);
         }
         $client->update([
-            'password' => Hash::make($request->password)
+            'password' => $request->password
         ]);
         $client->resetCode();
         return responseJson(message: "Password reset successfully");

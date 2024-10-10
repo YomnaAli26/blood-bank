@@ -3,42 +3,47 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\BloodType;
-use App\Models\Category;
-use App\Models\City;
-use App\Models\Governorate;
-use App\Models\Setting;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreContactRequest;
+use App\Http\Requests\StoreNotificationsSettingsRequest;
+use App\Http\Resources\{BloodTypeResource, CategoryResource, CityResource, GovernorateResource};
+use App\Models\{BloodType,Setting,Governorate,Contact,City,Category};
+use Illuminate\Http\{JsonResponse,Request};
 use Illuminate\Support\Facades\Cache;
 use function App\Helpers\responseJson;
 
 class MainController extends Controller
 {
+
     public function governorates(): JsonResponse
     {
         $governorates = Governorate::all();
-        return responseJson(1, "success", $governorates);
+        return responseJson(1, "success", GovernorateResource::collection($governorates));
 
     }
 
     public function cities(Request $request): JsonResponse
     {
-        $cities = City::where(function ($query) use ($request) {
-            if ($request->has('governorate_id')) {
-                $query->where('governorate_id', $request->query('governorate_id'));
-            }
-        })->get();
-        return responseJson(1, "success", $cities);
+        $query = City::query();
+        if ($request->has('governorate_id')) {
+            $query->where('governorate_id', $request->get('governorate_id'));
+        }
+        $cities = $query->get();
+        return responseJson(1, "success", CityResource::collection($cities));
+
+    }
+    public function categories(): JsonResponse
+    {
+        $categories =Category::all();
+        return responseJson(1, "success",CategoryResource::collection($categories));
 
     }
 
     public function settings(): JsonResponse
     {
-        $settings = Cache::remember('settings', 60 * 60, function () {
+        $settings = Cache::remember('settings', 3600, function () {
             return Setting::query()->pluck('value', 'key')->toArray();
         });
-        return responseJson(1, "success", $settings);
+        return responseJson(data: $settings);
 
     }
 
@@ -47,17 +52,26 @@ class MainController extends Controller
         $bloodTypes = Cache::remember('bloodTypes', 60 * 60, function () {
             return BloodType::all();
         });
-        return responseJson(1, "success", $bloodTypes);
+        return responseJson(1, "success", BloodTypeResource::collection($bloodTypes));
     }
 
-    public function notificationsSettings(Request $request)
+    public function notificationsSettings(StoreNotificationsSettingsRequest $notificationsSettingsRequest): JsonResponse
     {
-        $request->validate([
-           'blood_types'=>['required','array'],
-           'governorates'=>['required','array']
-        ]);
-        $request->user()->governorates()->detach();
-        $request->user()->governorates()->attach();
+        $notificationsSettingsRequest->user()->governorates()
+            ->sync($notificationsSettingsRequest->governorates);
+
+        $notificationsSettingsRequest->user()->bloodTypes()
+            ->sync($notificationsSettingsRequest->blood_types);
+        return responseJson(message: "Notifications settings have been updated");
+
+    }
+
+    public function contactUs(StoreContactRequest $request): JsonResponse
+    {
+        $request->merge(['client_id' => auth()->user()->id]);
+        Contact::create($request->validated());
+        return responseJson(message: "Message has been sent");
+
     }
 
 }

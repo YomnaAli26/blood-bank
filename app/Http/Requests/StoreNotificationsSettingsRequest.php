@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests;
 
-use App\Http\Requests\Base\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class LoginRequest extends FormRequest
+class StoreNotificationsSettingsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +22,10 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone' => ['required', 'regex:/^\+2[0-9]{9,18}$/','max:20'],
-            'password'=>['required','string','min:8','max:30'],
+            'blood_types'=>['required','array'],
+            'blood_types.*'=>['required','exists:blood_types,id'],
+            'governorates'=>['required','array'],
+            'governorates.*'=>['required','exists:governorates,id'],
         ];
     }
 }

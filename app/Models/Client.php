@@ -18,6 +18,15 @@ class Client extends Authenticatable
     protected $hidden = [
         'password'
     ];
+    protected $with =[
+        'governorates',
+        'bloodTypes',
+        'notifications',
+        'posts',
+        'donationRequests',
+        'city',
+        'bloodType',
+    ];
 
     public function bloodType(): BelongsTo
     {

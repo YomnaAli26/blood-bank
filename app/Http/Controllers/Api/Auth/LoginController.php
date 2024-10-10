@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Resources\ClientResource;
 use App\Models\Client;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,11 +26,10 @@ class LoginController extends Controller
             throw ValidationException::withMessages(['phone' => __('auth.failed')]);
         }
         $token = $client->createToken($client->phone)->plainTextToken;
-        return responseJson(data: [
-            'token' => $token,
-            'client' => $client
-        ]);
-
+        return responseJson(data: array_merge(
+            ClientResource::make($client)->toArray($request),
+            ['token' => $token]
+        ));
 
     }
 }
