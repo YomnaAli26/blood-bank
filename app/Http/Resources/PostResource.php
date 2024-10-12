@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GovernorateResource extends JsonResource
+class PostResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,8 +15,13 @@ class GovernorateResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
+            'id' =>$this->id,
+            'title'=>$this->title,
+            'description'=>$this->description,
+            'image'=>$this->image,
+            'category'=>CategoryResource::make($this->category),
+
+
         ];
     }
 }

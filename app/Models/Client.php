@@ -14,11 +14,16 @@ class Client extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
 
-    protected $fillable = array('name', 'email', 'phone', 'password', 'code', 'b_o_d', 'last_donation_date', 'city_id', 'blood_type_id');
+    protected $fillable = array(
+        'name', 'email', 'phone', 'password',
+        'code', 'b_o_d', 'last_donation_date',
+        'city_id', 'blood_type_id'
+    );
     protected $hidden = [
-        'password'
+        'remember_token',
+        'password',
     ];
-    protected $with =[
+    protected $with = [
         'governorates',
         'bloodTypes',
         'notifications',
@@ -26,6 +31,9 @@ class Client extends Authenticatable
         'donationRequests',
         'city',
         'bloodType',
+    ];
+    protected $casts = [
+        'password' => 'hashed',
     ];
 
     public function bloodType(): BelongsTo
@@ -41,6 +49,10 @@ class Client extends Authenticatable
     public function donationRequests(): HasMany
     {
         return $this->hasMany(DonationRequest::class);
+    }
+    public function contacts(): HasMany
+    {
+        return $this->hasMany(Contact::class);
     }
 
     public function posts(): BelongsToMany
@@ -75,11 +87,5 @@ class Client extends Authenticatable
         $this->save();
     }
 
-    public function password(): Attribute
-    {
-        return Attribute::make(
-            set: fn($value) => Hash::make($value),
-        );
-    }
 
 }

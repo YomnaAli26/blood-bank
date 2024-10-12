@@ -13,10 +13,13 @@ Route::group(['prefix' => 'v1/'], function () {
     Route::post('forgot-password', ForgotPasswordController::class);
     Route::patch('reset-password', ResetPasswordController::class);
 
+
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('logout', LogoutController::class);
         Route::put('/edit-profile/{client}', ProfileController::class);
-        Route::post('/notifications-settings', [MainController::class,'notificationsSettings']);
+        Route::get('/client-governorates', [MainController::class,'getClientGovernorates']);
+        Route::get('/client-blood-types', [MainController::class,'getClientBloodTypes']);
+        Route::post('/notifications-settings', [MainController::class,'storeNotificationsSettings']);
         Route::post('/contact-us', [MainController::class,'contactUs']);
         Route::get('/governorates', [MainController::class, 'governorates']);
         Route::get('/cities', [MainController::class, 'cities']);
@@ -25,6 +28,7 @@ Route::group(['prefix' => 'v1/'], function () {
         Route::get('/blood-types', [MainController::class, 'bloodTypes']);
     });
 
+    Route::get('/posts', [MainController::class, 'posts']);
 
 });
 
