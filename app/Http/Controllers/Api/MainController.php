@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreContactRequest;
-use App\Http\Requests\StoreNotificationsSettingsRequest;
+use App\Http\Requests\StoreNotificationSettingsRequest;
 use App\Http\Resources\{BloodTypeResource, CategoryResource, CityResource, GovernorateResource, PostResource};
 use App\Models\{BloodType, Client, Post, Setting, Governorate, Contact, City, Category};
 use Illuminate\Http\{JsonResponse, Request};
@@ -64,7 +64,7 @@ class MainController extends Controller
         return responseJson(1, "success", GovernorateResource::collection($clientBloodTypes));
     }
 
-    public function storeNotificationsSettings(StoreNotificationsSettingsRequest $notificationsSettingsRequest): JsonResponse
+    public function storeNotificationsSettings(StoreNotificationSettingsRequest $notificationsSettingsRequest): JsonResponse
     {
         $notificationsSettingsRequest->user()->governorates()
             ->detach();

@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\Auth\{RegisterController,
     ResetPasswordController,
     LogoutController
 };
-use App\Http\Controllers\Api\{MainController, ProfileController, PostController};
+use App\Http\Controllers\Api\{DonationRequestController, MainController, ProfileController, PostController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,9 +30,14 @@ Route::group(['prefix' => 'v1/'], function () {
         Route::get('/categories', [MainController::class, 'categories']);
         Route::get('/settings', [MainController::class, 'settings']);
         Route::get('/blood-types', [MainController::class, 'bloodTypes']);
+
         Route::apiResource('posts', PostController::class)->only(['index', 'show']);
         Route::get('favourite-posts', [PostController::class, 'getFavouritePosts']);
         Route::post('toggle-favourite-post', [PostController::class, 'toggleFavouritePost']);
+        Route::apiResource('donation-requests', DonationRequestController::class)->only(['index', 'show']);
+
+
+
     });
 
 
