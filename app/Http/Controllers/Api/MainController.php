@@ -23,11 +23,7 @@ class MainController extends Controller
 
     public function cities(Request $request): JsonResponse
     {
-        $query = City::query();
-        if ($request->has('governorate_id')) {
-            $query->where('governorate_id', $request->get('governorate_id'));
-        }
-        $cities = $query->get();
+        !empty($request->query()) ? $cities =City::filter($request->query())->get() : $cities =City::all();
         return responseJson(1, "success", CityResource::collection($cities));
 
     }
@@ -93,26 +89,5 @@ class MainController extends Controller
 
     }
 
-    public function posts(Request $request): JsonResponse
-    {
-        Client::find(1)->posts()->toggle($request->post_id);
-        dd("Dd");
-        $query = Post::query();
-
-        if ($request->has('category_id') && ($request->has('title') || $request->has('description'))) {
-            $query->where(function ($query) use ($request) {
-                $query->where('category_id', $request->get('category_id'))
-                    ->where('title', 'like', '%' . $request->get('title') . '%');
-//                    ->orWhere('description', 'like', '%' . $request->get('description') . '%');
-            });
-        }
-        $posts = $query->get();
-        return responseJson(1, "success", PostResource::collection($posts));
-    }
-
-    public function favourites(Request $request)
-    {
-        auth()->user()->posts()->toggle($request->post_id);
-    }
 
 }
