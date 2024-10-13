@@ -6,7 +6,8 @@ use App\Http\Controllers\Api\Auth\{RegisterController,
     ResetPasswordController,
     LogoutController
 };
-use App\Http\Controllers\Api\{DonationRequestController, MainController, ProfileController, PostController};
+use App\Http\Controllers\Api\{DonationRequestController, MainController,
+    ProfileController, PostController,FcmTokenController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -37,6 +38,8 @@ Route::group(['prefix' => 'v1/'], function () {
         Route::post('toggle-favourite-post', [PostController::class, 'toggleFavouritePost']);
         Route::apiResource('donation-requests', DonationRequestController::class)
             ->only(['index', 'show','store']);
+        Route::post('fcm-token', [FcmTokenController::class,'store']);
+        Route::delete('fcm-token', [FcmTokenController::class,'destroy']);
 
 
 

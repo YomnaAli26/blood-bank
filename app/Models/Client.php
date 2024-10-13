@@ -50,6 +50,7 @@ class Client extends Authenticatable
     {
         return $this->hasMany(DonationRequest::class);
     }
+
     public function contacts(): HasMany
     {
         return $this->hasMany(Contact::class);
@@ -73,6 +74,11 @@ class Client extends Authenticatable
     public function governorates(): BelongsToMany
     {
         return $this->belongsToMany(Governorate::class);
+    }
+
+    public function fcmTokens(): HasMany
+    {
+        return $this->hasMany(FcmToken::class);
     }
 
     public function generateCode(): void
