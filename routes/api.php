@@ -31,10 +31,12 @@ Route::group(['prefix' => 'v1/'], function () {
         Route::get('/settings', [MainController::class, 'settings']);
         Route::get('/blood-types', [MainController::class, 'bloodTypes']);
 
-        Route::apiResource('posts', PostController::class)->only(['index', 'show']);
+        Route::apiResource('posts', PostController::class)
+            ->only(['index', 'show']);
         Route::get('favourite-posts', [PostController::class, 'getFavouritePosts']);
         Route::post('toggle-favourite-post', [PostController::class, 'toggleFavouritePost']);
-        Route::apiResource('donation-requests', DonationRequestController::class)->only(['index', 'show']);
+        Route::apiResource('donation-requests', DonationRequestController::class)
+            ->only(['index', 'show','store']);
 
 
 

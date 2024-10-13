@@ -31,9 +31,25 @@ class DonationRequestController extends Controller
         return responseJson(1, "success", DonationRequestResource::make($donationRequest));
 
     }
-    public function store(StoreDonationRequest $request): JsonResponse
-    {
 
+    public function store(StoreDonationRequest $donationRequest)
+    {
+        $donationRequest = $donationRequest->user()->donationRequests()->create($donationRequest->validated());
+        $clientsIds = $donationRequest->city->governorate
+            ->clients()
+            ->whereHas('bloodTypes', function ($query) use ($donationRequest) {
+                $query->where('blood_types.id', $donationRequest->blood_type_id);
+            })
+            ->pluck('clients.id')->toArray();
+        if (count($clientsIds))
+        {
+            $notification = $donationRequest->notifications()->create([
+               'title'=>'يوجد حالة تبرع قريبة منك.',
+               'content'=>$donationRequest->bloodType->name.' اريد متبرع لفصيلة دم',
+            ]);
+            $notification->clients()->attach($clientsIds);
+
+        }
     }
 
 }
