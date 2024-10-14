@@ -81,6 +81,15 @@ class Client extends Authenticatable
         return $this->hasMany(FcmToken::class);
     }
 
+    public function getDeviceTokens(): array
+    {
+        return $this->fcmTokens()->pluck('token')->toArray();
+    }
+    public function routeNotificationForFcm(): array
+    {
+        return $this->getDeviceTokens();
+    }
+
     public function generateCode(): void
     {
         $this->code = rand(0000, 9999);

@@ -17,7 +17,7 @@ class PostController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        !empty($request->query()) ? $posts = Post::filter($request->query())->get() : $posts = Post::all();
+        $posts = Post::filter($request->query())->get();
         return responseJson(1, "success", PostResource::collection($posts));
     }
 
