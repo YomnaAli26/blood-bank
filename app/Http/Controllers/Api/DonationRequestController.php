@@ -21,8 +21,7 @@ class DonationRequestController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        !empty($request->query()) ? $donationRequests = DonationRequest::filter($request->query())->get()
-            : $donationRequests = DonationRequest::all();
+         $donationRequests = DonationRequest::filter($request->query())->paginate(10);
 
         return responseJson(1, "success", DonationRequestResource::collection($donationRequests));
     }

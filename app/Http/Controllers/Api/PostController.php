@@ -17,7 +17,7 @@ class PostController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        $posts = Post::filter($request->query())->get();
+        $posts = Post::filter($request->query())->paginate(10);
         return responseJson(1, "success", PostResource::collection($posts));
     }
 

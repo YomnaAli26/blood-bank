@@ -23,7 +23,7 @@ class MainController extends Controller
 
     public function cities(Request $request): JsonResponse
     {
-        !empty($request->query()) ? $cities =City::filter($request->query())->get() : $cities =City::all();
+        $cities =City::filter($request->query())->get();
         return responseJson(1, "success", CityResource::collection($cities));
 
     }
@@ -64,23 +64,7 @@ class MainController extends Controller
         return responseJson(1, "success", GovernorateResource::collection($clientBloodTypes));
     }
 
-    public function storeNotificationsSettings(StoreNotificationSettingsRequest $notificationsSettingsRequest): JsonResponse
-    {
-        $notificationsSettingsRequest->user()->governorates()
-            ->detach();
 
-        $notificationsSettingsRequest->user()->governorates()
-            ->attach($notificationsSettingsRequest->governorates);
-
-        $notificationsSettingsRequest->user()->bloodTypes()
-            ->detach();
-
-        $notificationsSettingsRequest->user()->bloodTypes()
-            ->attach($notificationsSettingsRequest->blood_types);
-
-        return responseJson(message: "Notifications settings have been updated");
-
-    }
 
     public function contactUs(StoreContactRequest $request): JsonResponse
     {

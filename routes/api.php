@@ -21,10 +21,10 @@ Route::group(['prefix' => 'v1/'], function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('logout', LogoutController::class);
-        Route::put('/edit-profile/{client}', ProfileController::class);
+        Route::put('/edit-profile/{client}', [ProfileController::class,'update']);
+        Route::post('/notifications-settings', [ProfileController::class, 'storeNotificationsSettings']);
         Route::get('/client-governorates', [MainController::class, 'getClientGovernorates']);
         Route::get('/client-blood-types', [MainController::class, 'getClientBloodTypes']);
-        Route::post('/notifications-settings', [MainController::class, 'storeNotificationsSettings']);
         Route::post('/contact-us', [MainController::class, 'contactUs']);
         Route::get('/governorates', [MainController::class, 'governorates']);
         Route::get('/cities', [MainController::class, 'cities']);
