@@ -35,9 +35,7 @@ class DonationRequestController extends Controller
     public function store(StoreDonationRequest $donationRequest)
     {
         $donationRequest = $donationRequest->user()->donationRequests()->create($donationRequest->validated());
-       /*Client::whereHas('governorates',function ($query) use ($donationRequest) {
-           $query->where('governorate_id',$donationRequest->city->governorate_id);
-       })->dd();*/
+
         $clientsIds = $donationRequest->city->governorate
             ->clients()
             ->whereHas('bloodTypes', function ($query) use ($donationRequest) {
