@@ -13,6 +13,7 @@ use App\Models\Post;
 use App\Notifications\DonationRequestNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use function App\Helpers\responseJson;
 
@@ -21,7 +22,7 @@ class DonationRequestController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-         $donationRequests = DonationRequest::filter($request->query())->paginate(10);
+        $donationRequests = DonationRequest::filter($request->query())->paginate(10);
 
         return responseJson(1, "success", DonationRequestResource::collection($donationRequests));
     }
@@ -36,20 +37,27 @@ class DonationRequestController extends Controller
     {
         $donationRequest = $donationRequest->user()->donationRequests()->create($donationRequest->validated());
 
-        $clientsIds = $donationRequest->city->governorate
-            ->clients()
-            ->whereHas('bloodTypes', function ($query) use ($donationRequest) {
-                $query->where('blood_types.id', $donationRequest->blood_type_id);
-            })
-            ->pluck('clients.id')->toArray();
-        if (count($clientsIds))
-        {
-            $notification = $donationRequest->notifications()->create([
-               'title'=>'يوجد حالة تبرع قريبة منك.',
-               'content'=>$donationRequest->bloodType->name.' اريد متبرع لفصيلة دم',
-            ]);
-            $notification->clients()->attach($clientsIds);
-            $donationRequest->user()->notify(new DonationRequestNotification($donationRequest));
+        $clientsIds = Client::whereHas('governorates', function ($query) use ($donationRequest) {
+            $query->where('governorate_id', $donationRequest->city->governorate_id);
+        })->whereHas('bloodTypes', function ($query) use ($donationRequest) {
+            $query->where('blood_type_id', $donationRequest->bloodType->blood_type_id);
+        })->pluck('id')->toArray();
+
+        if (count($clientsIds)) {
+            DB::beginTransaction();
+            try {
+                $notification = $donationRequest->notifications()->create([
+                    'title' => 'يوجد حالة تبرع قريبة منك.',
+                    'content' => $donationRequest->bloodType->name . ' اريد متبرع لفصيلة دم',
+                ]);
+                $notification->clients()->attach($clientsIds);
+                $donationRequest->user()->notify(new DonationRequestNotification($donationRequest));
+                DB::commit();
+            } catch (\Exception $exception) {
+                DB::rollBack();
+                return responseJson(0, $exception->getMessage());
+            }
+
 
         }
     }
