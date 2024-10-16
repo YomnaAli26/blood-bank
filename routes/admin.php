@@ -2,6 +2,5 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('admin.dashboard');
-});
+Route::view('/','admin.dashboard')->name('dashboard');
+Route::resource('/governorates','GovernorateController');
