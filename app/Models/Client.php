@@ -17,7 +17,7 @@ class Client extends Authenticatable
     protected $fillable = array(
         'name', 'email', 'phone', 'password',
         'code', 'b_o_d', 'last_donation_date',
-        'city_id', 'blood_type_id'
+        'city_id', 'blood_type_id','is_active'
     );
     protected $hidden = [
         'remember_token',
@@ -88,6 +88,13 @@ class Client extends Authenticatable
     public function routeNotificationForFcm(): array
     {
         return $this->getDeviceTokens();
+    }
+
+    public function isActive(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->is_active ? 'activated' : 'deactivated'
+        );
     }
 
     public function generateCode(): void

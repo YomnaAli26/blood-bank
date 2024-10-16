@@ -10,11 +10,7 @@
         <div class="container-fluid"> <!--begin::Row-->
             <div class="row g-4"> <!--begin::Col-->
                 <div class="col-12">
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+
                     <!--begin::Form Validation-->
                     <div class="card  card-outline mb-4"> <!--begin::Header-->
                         <div class="card-header">
@@ -22,6 +18,7 @@
                         </div> <!--end::Header--> <!--begin::Form-->
                         <form class="needs-validation" method="post" action="{{ route("admin.governorates.update",$model->id) }}" novalidate> <!--begin::Body-->
                             @csrf
+                            @method("PUT")
                             <div class="card-body"> <!--begin::Row-->
                                 <div class="row g-3"> <!--begin::Col-->
                                     <div class="col-md-12"> <label for="validationCustom01" class="form-label">Name</label>

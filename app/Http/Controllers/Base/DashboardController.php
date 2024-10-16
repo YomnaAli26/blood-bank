@@ -9,12 +9,12 @@ class DashboardController extends Controller
 {
     protected $repositoryInterface;
     protected $storeRequestClass;
-    protected string $baseFolder = 'admin.';
+    protected $baseFolder = 'admin.';
     protected $indexView;
     protected $createView;
     protected $editView;
     protected $successMessage;
-
+    protected $showView;
 
 
     public function index()
@@ -36,8 +36,14 @@ class DashboardController extends Controller
         $validatedData = $request->validate($this->storeRequestClass->rules());
         $this->repositoryInterface->create($validatedData);
         return redirect()->route("{$this->baseFolder}{$this->indexView}")
-            ->with('success',$this->successMessage);
+            ->with('success', $this->successMessage);
 
+    }
+
+    public function show($id)
+    {
+        $model = $this->repositoryInterface->find($id);
+        return view("{$this->baseFolder}{$this->showView}",compact("model"));
     }
 
     public function edit($id)
@@ -47,16 +53,17 @@ class DashboardController extends Controller
 
     }
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate($this->storeRequestClass->rules());
-        $this->repositoryInterface->create($validatedData);
+        $this->repositoryInterface->update($validatedData, $id);
         return redirect()->route("{$this->baseFolder}{$this->indexView}")
-            ->with('success',$this->successMessage);
+            ->with('success', $this->successMessage);
     }
 
-    public function delete()
+    public function destroy($id)
     {
-
+        $this->repositoryInterface->delete($id);
+        return redirect()->route("{$this->baseFolder}{$this->indexView}")->with('success', $this->successMessage);
     }
 }

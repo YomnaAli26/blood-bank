@@ -10,11 +10,7 @@
         <div class="container-fluid"> <!--begin::Row-->
             <div class="row g-4"> <!--begin::Col-->
                 <div class="col-12">
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+
                     <!--begin::Form Validation-->
                     <div class="card  card-outline mb-4"> <!--begin::Header-->
                         <div class="card-header">
