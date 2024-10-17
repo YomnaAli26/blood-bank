@@ -15,6 +15,7 @@ class CategoryController extends DashboardController
         $this->storeRequestClass = new StoreCategoryRequest();
         $this->indexView = 'categories.index';
         $this->createView = 'categories.create';
+        $this->showView = 'categories.show';
         $this->editView = 'categories.edit';
         $this->successMessage = 'Process success';
     }

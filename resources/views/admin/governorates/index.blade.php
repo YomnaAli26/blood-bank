@@ -39,7 +39,7 @@
                                         <td>{{$loop->iteration}}.</td>
                                         <td>{{$datum->name}}</td>
                                         <td colspan="3">
-                                            <a class="btn btn-primary" href="">show</a>
+                                            <a class="btn btn-primary" href="{{ route("admin.governorates.show",$datum->id) }}">show</a>
                                             <a class="btn btn-info"
                                                href="{{ route("admin.governorates.edit",$datum->id) }}">edit</a>
                                             <a class="btn btn-danger"
@@ -64,13 +64,7 @@
                             </table>
                         </div> <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <ul class="pagination pagination-sm m-0 float-end">
-                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                            </ul>
+                            {{ $data->links('pagination::bootstrap-4') }}
                         </div>
                     </div> <!-- /.card -->
                 </div> <!-- /.col -->

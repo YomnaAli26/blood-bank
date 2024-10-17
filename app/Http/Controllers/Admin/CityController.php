@@ -16,6 +16,7 @@ class CityController extends DashboardController
         $this->indexView = 'cities.index';
         $this->createView = 'cities.create';
         $this->editView = 'cities.edit';
+        $this->showView = 'cities.show';
         $this->successMessage = 'Process success';
     }
 

@@ -12,4 +12,9 @@ class ClientRepository extends BaseRepository implements ClientRepositoryInterfa
     {
         parent::__construct($client);
     }
+
+    public function filter($data)
+    {
+        return Client::filter($data)->paginate(10);
+    }
 }

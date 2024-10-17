@@ -48,3 +48,4 @@
         });
     });
 </script> <!--end::Bootstrap Toasts--> <!--end::Script-->
+@stack("scripts")

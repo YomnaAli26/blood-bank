@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
+use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany, BelongsToMany};
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 class Client extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens,FilterTrait;
 
     protected $fillable = array(
         'name', 'email', 'phone', 'password',
@@ -31,6 +31,7 @@ class Client extends Authenticatable
         'donationRequests',
         'city',
         'bloodType',
+
     ];
     protected $casts = [
         'password' => 'hashed',
@@ -90,12 +91,7 @@ class Client extends Authenticatable
         return $this->getDeviceTokens();
     }
 
-    public function isActive(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->is_active ? 'activated' : 'deactivated'
-        );
-    }
+
 
     public function generateCode(): void
     {

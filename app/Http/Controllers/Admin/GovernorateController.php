@@ -16,6 +16,7 @@ class GovernorateController extends DashboardController
         $this->indexView = 'governorates.index';
         $this->createView = 'governorates.create';
         $this->editView = 'governorates.edit';
+        $this->showView = 'governorates.show';
         $this->successMessage = 'Process success';
     }
 
