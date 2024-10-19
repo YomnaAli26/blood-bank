@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Base;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 class DashboardController extends Controller
 {
@@ -34,7 +35,17 @@ class DashboardController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate($this->storeRequestClass->rules());
-        $this->repositoryInterface->create($validatedData);
+        $model = $this->repositoryInterface->create($validatedData);
+        if (count($request->allFiles()) > 0)
+        {
+            foreach ($request->allFiles() as $inputName => $file)
+            {
+                if ($file instanceof UploadedFile)
+                {
+                    $model->addMedia($file)->toMediaCollection('images');
+                }
+            }
+        }
         return redirect()->route("{$this->baseFolder}{$this->indexView}")
             ->with('success', $this->successMessage);
 

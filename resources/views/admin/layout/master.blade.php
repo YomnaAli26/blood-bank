@@ -12,14 +12,14 @@
     <meta name="keywords"
           content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard">
     <!--end::Primary Meta Tags--><!--begin::Fonts-->
-    @include("admin.partials.links")
+    @include("admin.layout.partials.links")
 </head> <!--end::Head--> <!--begin::Body-->
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
 <div class="app-wrapper"> <!--begin::Header-->
-    @include("admin.partials.navbar")
+    @include("admin.layout.partials.navbar")
 
-    @include("admin.partials.sidebar")
+    @include("admin.layout.partials.sidebar")
 
     <!--begin::App Main-->
     <main class="app-main"> <!--begin::App Content Header-->
@@ -42,9 +42,9 @@
         @yield("content")
     </main>
     <!--end::App Main-->
-    @include("admin.partials.footer")
+    @include("admin.layout.partials.footer")
 </div> <!--end::App Wrapper--> <!--begin::Script--> <!--begin::Third Party Plugin(OverlayScrollbars)-->
-@include("admin.partials.scripts")
+@include("admin.layout.partials.scripts")
 </body><!--end::Body-->
 
 </html>
