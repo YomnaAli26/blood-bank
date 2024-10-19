@@ -42,7 +42,7 @@ class DashboardController extends Controller
             {
                 if ($file instanceof UploadedFile)
                 {
-                    $model->addMedia($file)->toMediaCollection('images');
+                    $model->addMedia($file)->toMediaCollection($inputName);
                 }
             }
         }

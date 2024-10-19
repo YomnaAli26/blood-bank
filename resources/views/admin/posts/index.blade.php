@@ -42,7 +42,7 @@
                                         <td>{{$datum->title}}</td>
                                         <td>{{$datum->description}}</td>
                                         <td>
-                                                <img src="{{  $datum->getFirstMediaUrl('images') }}"
+                                                <img src="{{  $datum->getFirstMediaUrl('image') }}"
                                                      alt="{{ $datum->title }}"
                                                      style="max-width: 100px; max-height: 100px;"/>
 
