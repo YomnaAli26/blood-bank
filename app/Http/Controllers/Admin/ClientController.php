@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Base\DashboardController;
+use App\Http\Requests\StoreClientRequest;
+use App\Http\Requests\UpdateClientRequest;
 use App\Repositories\Interfaces\ClientRepositoryInterface;
-use http\Env\Request;
 use Illuminate\Http\JsonResponse;
 
 
@@ -13,7 +14,11 @@ class ClientController extends DashboardController
     public function __construct(ClientRepositoryInterface $clientRepository)
     {
         $this->repositoryInterface = $clientRepository;
+        $this->storeRequestClass = new StoreClientRequest();
+        $this->updateRequestClass = new UpdateClientRequest();
         $this->indexView = 'clients.index';
+        $this->createView = 'clients.create';
+        $this->editView = 'clients.edit';
         $this->successMessage = 'Process success';
     }
 

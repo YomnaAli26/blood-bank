@@ -4,15 +4,18 @@ namespace App\Models;
 
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\{BelongsTo,BelongsToMany};
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, BelongsToMany};
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Post extends Model implements HasMedia
 {
-    use FilterTrait,InteractsWithMedia;
+    use FilterTrait, InteractsWithMedia;
 
-    protected $fillable = array('title', 'description', 'image', 'category_id');
+    protected $fillable = array('title', 'description', 'category_id');
+    protected $with = [
+        'category'
+    ];
 
     public function category(): BelongsTo
     {

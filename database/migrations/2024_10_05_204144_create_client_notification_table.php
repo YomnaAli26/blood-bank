@@ -9,8 +9,8 @@ class CreateClientNotificationTable extends Migration {
 	public function up()
 	{
 		Schema::create('client_notification', function(Blueprint $table) {
-			$table->foreignId('client_id')->constrained()->noActionOnDelete();
-			$table->foreignId('notification_id')->constrained()->noActionOnDelete();
+			$table->foreignId('client_id')->constrained()->cascadeOnDelete();
+			$table->foreignId('notification_id')->constrained()->cascadeOnDelete();
 			$table->timestamps();
 		});
 	}

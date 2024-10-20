@@ -33,7 +33,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <h5>Post Image:</h5>
-                                    <p>{{$model->image}}</p>
+                                    <img src="{{  $model->getFirstMediaUrl('image') }}"
+                                         alt="{{ $model->title }}"
+                                         style="max-width: 50px; max-height: 50px; border-radius: 50%;"/>
                                 </div>
                                 <div class="col-md-6">
                                     <h5>Category:</h5>

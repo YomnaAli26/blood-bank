@@ -12,7 +12,7 @@ class CreateNotificationsTable extends Migration {
 			$table->id();
 			$table->string('title');
 			$table->longText('content');
-			$table->foreignId('donation_request_id')->constrained()->noActionOnDelete();
+			$table->foreignId('donation_request_id')->constrained()->cascadeOnDelete();
 			$table->timestamps();
 		});
 	}

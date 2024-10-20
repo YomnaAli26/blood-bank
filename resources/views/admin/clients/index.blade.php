@@ -91,6 +91,8 @@
                             <h3 class="card-title">Clients</h3>
                         </div>
                         <div class="card-body">
+                            <a class="btn btn-success mb-3" href="{{ route("admin.clients.create") }}">Create</a>
+
                             <table class="table table-striped table-hover">
                                 <thead class="table-primary">
                                 <tr>
@@ -125,7 +127,10 @@
                                                 <button class="btn btn-info me-2 toggle-status" data-id="{{ $datum->id }}" data-status="{{ $datum->is_active }}">
                                                     {{ $datum->is_active == 1 ? 'Deactivate' : 'Activate' }}
                                                 </button>
-                                                <a class="btn btn-danger" href="{{ route('admin.clients.destroy', $datum->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $datum->id }}').submit()">
+                                                <a class="btn btn-info"
+                                                   href="{{ route("admin.clients.edit",$datum->id) }}">edit</a>
+
+                                                <a class="btn btn-danger ml-2.5" href="{{ route('admin.clients.destroy', $datum->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $datum->id }}').submit()">
                                                     Delete
                                                 </a>
                                                 <form id="delete-form-{{ $datum->id }}" action="{{ route('admin.clients.destroy', $datum->id) }}" method="post" style="display: none;">

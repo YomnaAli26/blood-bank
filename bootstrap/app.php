@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -20,7 +21,20 @@ return Application::configure(basePath: dirname(__DIR__))
         }
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->redirectUsersTo(function (){
+           if (Auth::guard('admin')->check())
+           {
+               return route('admin.dashboard');
+           }
+
+        });
+        $middleware->redirectGuestsTo(function (){
+            if (Auth::guard('admin')->guest())
+            {
+                return route('admin.login');
+            }
+        });
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

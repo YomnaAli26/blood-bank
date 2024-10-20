@@ -9,8 +9,8 @@ class CreateClientGovernorateTable extends Migration {
 	public function up()
 	{
 		Schema::create('client_governorate', function(Blueprint $table) {
-			$table->foreignId('client_id')->constrained()->noActionOnDelete();
-			$table->foreignId('governorate_id')->constrained()->noActionOnDelete();
+			$table->foreignId('client_id')->constrained()->cascadeOnDelete();
+			$table->foreignId('governorate_id')->constrained()->cascadeOnDelete();
 		});
 	}
 

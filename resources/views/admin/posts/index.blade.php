@@ -44,8 +44,7 @@
                                         <td>
                                                 <img src="{{  $datum->getFirstMediaUrl('image') }}"
                                                      alt="{{ $datum->title }}"
-                                                     style="max-width: 100px; max-height: 100px;"/>
-
+                                                     style="max-width: 50px; max-height: 50px; border-radius: 50%;"/>
                                         </td>
                                         <td>{{$datum->category->name}}</td>
                                         <td>

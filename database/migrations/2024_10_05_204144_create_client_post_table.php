@@ -9,8 +9,8 @@ class CreateClientPostTable extends Migration {
 	public function up()
 	{
 		Schema::create('client_post', function(Blueprint $table) {
-			$table->foreignId('client_id')->constrained()->noActionOnDelete();
-			$table->foreignId('post_id')->constrained()->noActionOnDelete();
+			$table->foreignId('client_id')->constrained()->cascadeOnDelete();
+			$table->foreignId('post_id')->constrained()->cascadeOnDelete();
 			$table->boolean('is_favourite');
 		});
 	}

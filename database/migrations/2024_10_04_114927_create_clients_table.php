@@ -17,9 +17,9 @@ class CreateClientsTable extends Migration {
 			$table->string('code')->nullable();
 			$table->date('b_o_d');
 			$table->date('last_donation_date');
-			$table->bigInteger('blood_type_id')->unsigned();
-			$table->bigInteger('city_id')->unsigned();
-			$table->timestamps();
+            $table->foreignId('blood_type_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('city_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
 		});
 	}
 

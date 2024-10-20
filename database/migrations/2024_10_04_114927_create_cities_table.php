@@ -12,7 +12,7 @@ class CreateCitiesTable extends Migration {
 			$table->id();
 			$table->string('name');
 			$table->foreignId('governorate_id')
-                ->constrained()->noActionOnDelete();
+                ->constrained()->cascadeOnDelete();
 			$table->timestamps();
 		});
 	}

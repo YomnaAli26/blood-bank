@@ -12,7 +12,7 @@ class CreateContactsTable extends Migration {
 			$table->id();
 			$table->string('message_title');
 			$table->longText('message_content');
-			$table->foreignId('client_id')->constrained()->noActionOnDelete();
+			$table->foreignId('client_id')->constrained()->cascadeOnDelete();
 			$table->timestamps();
 		});
 	}

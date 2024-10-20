@@ -9,8 +9,8 @@ class CreateBloodTypeClientTable extends Migration {
 	public function up()
 	{
 		Schema::create('blood_type_client', function(Blueprint $table) {
-			$table->foreignId('client_id')->constrained()->noActionOnDelete();
-			$table->foreignId('blood_type_id')->constrained()->noActionOnDelete();
+			$table->foreignId('client_id')->constrained()->cascadeOnDelete();
+			$table->foreignId('blood_type_id')->constrained()->cascadeOnDelete();
 		});
 	}
 
