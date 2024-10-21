@@ -3,7 +3,7 @@
     <!--begin::Sidebar Brand-->
     <div class="sidebar-brand">
         <!--begin::Brand Link-->
-        <a href="../index.html" class="brand-link">
+        <a href="{{ route("admin.dashboard") }}" class="brand-link">
             <!--begin::Brand Image-->
             <img src="{{asset("admin/assets/img/AdminLTELogo.png")}}" alt="AdminLTE Logo"
                  class="brand-image opacity-75 shadow">
@@ -67,6 +67,19 @@
                     <a href="{{ route("admin.posts.index") }}" class="nav-link">
                         <i class="nav-icon bi bi-card-text"></i>
                         <p>Posts</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route("admin.donation-requests.index") }}" class="nav-link">
+                        <i class="nav-icon bi bi-heart-fill"></i>
+                        <p>Donation Requests</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route("admin.settings.index") }}" class="nav-link">
+                        <i class="nav-icon bi bi-gear-fill"></i>
+                        <p>Settings</p>
                     </a>
                 </li>
 

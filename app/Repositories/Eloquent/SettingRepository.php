@@ -11,4 +11,9 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
     {
         parent::__construct($setting);
     }
+
+    public function all()
+    {
+        return $this->model->all()->pluck('value', 'key');
+    }
 }

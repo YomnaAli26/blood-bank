@@ -71,14 +71,11 @@ class DashboardController extends Controller
         $validatedData = $this->excludeFilesFromValidatedData($validatedData);
         $model = $this->repositoryInterface->find($id);
         if (count($request->allFiles()) > 0) {
-
             foreach ($request->allFiles() as $inputName => $file) {
                 if ($file instanceof UploadedFile) {
-                    // Check if media exists for this collection and delete it
                     if ($model->hasMedia($inputName)) {
                         $model->clearMediaCollection($inputName);
                     }
-                    // Add the new file to the media collection
                     $model->addMedia($file)->toMediaCollection($inputName);
                 }
             }
@@ -90,23 +87,16 @@ class DashboardController extends Controller
 
     public function destroy($id)
     {
-        // Find the model by its ID
         $model = $this->repositoryInterface->find($id);
 
-        // Check if the model exists
         if ($model) {
-            // Clear all media associated with this model
-            $model->clearMediaCollection(); // Optional: you can specify a collection name if needed
+            $model->clearMediaCollection();
 
-            // Delete the model
             $this->repositoryInterface->delete($id);
 
-            // Redirect with a success message
             return redirect()->route("{$this->baseFolder}{$this->indexView}")
                 ->with('success', $this->successMessage);
         }
-
-        // Optionally handle the case when the model is not found
         return redirect()->route("{$this->baseFolder}{$this->indexView}")
             ->with('error', 'Model not found');
     }

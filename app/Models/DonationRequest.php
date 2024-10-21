@@ -13,6 +13,12 @@ class DonationRequest extends Model
     protected $table = 'donation_requests';
     public $timestamps = true;
     protected $fillable = array('patient_name', 'patient_phone', 'patient_age', 'blood_type_id', 'bags_num', 'hospital_name', 'hospital_address', 'latitude', 'longitude', 'city_id', 'notes', 'client_id');
+    protected $with = [
+        'client',
+        'bloodType',
+        'city',
+        'notifications',
+    ];
 
     public function client(): BelongsTo
     {
