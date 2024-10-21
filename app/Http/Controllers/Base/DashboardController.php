@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Base;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Spatie\MediaLibrary\HasMedia;
 
 class DashboardController extends Controller
 {
@@ -89,16 +90,13 @@ class DashboardController extends Controller
     {
         $model = $this->repositoryInterface->find($id);
 
-        if ($model) {
+        if ($model instanceof HasMedia && $model->hasMedia()) {
             $model->clearMediaCollection();
-
-            $this->repositoryInterface->delete($id);
-
-            return redirect()->route("{$this->baseFolder}{$this->indexView}")
-                ->with('success', $this->successMessage);
         }
+        $this->repositoryInterface->delete($id);
+
         return redirect()->route("{$this->baseFolder}{$this->indexView}")
-            ->with('error', 'Model not found');
+            ->with('success', $this->successMessage);
     }
 
     protected function excludeFilesFromValidatedData(array $validatedData): array
