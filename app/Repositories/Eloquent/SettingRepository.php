@@ -16,4 +16,9 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
     {
         return $this->model->all()->pluck('value', 'key');
     }
+
+    public function findByKey($key)
+    {
+        return $this->model->where('key', $key)->firstOrFail();
+    }
 }

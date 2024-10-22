@@ -76,13 +76,20 @@
                         <p>Donation Requests</p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.contact-us.index') }}" class="nav-link">
+                        <i class="nav-icon bi bi-envelope-fill" title="Contact Us Settings"></i>
+                        <p>Contact Us</p>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="{{ route("admin.settings.index") }}" class="nav-link">
                         <i class="nav-icon bi bi-gear-fill"></i>
                         <p>Settings</p>
                     </a>
                 </li>
-
             </ul>
             <!--end::Sidebar Menu-->
         </nav>
