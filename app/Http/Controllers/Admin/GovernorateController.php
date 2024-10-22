@@ -12,7 +12,7 @@ class GovernorateController extends DashboardController
 {
     public function __construct(GovernorateRepositoryInterface $governorateRepository)
     {
-        $this->repositoryInterface = $governorateRepository;
+        $this->repository = $governorateRepository;
         $this->storeRequestClass = new StoreGovernorateRequest();
         $this->updateRequestClass = new UpdateGovernorateRequest();
         $this->indexView = 'governorates.index';

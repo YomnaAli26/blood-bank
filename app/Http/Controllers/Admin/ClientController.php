@@ -13,7 +13,7 @@ class ClientController extends DashboardController
 {
     public function __construct(ClientRepositoryInterface $clientRepository)
     {
-        $this->repositoryInterface = $clientRepository;
+        $this->repository = $clientRepository;
         $this->storeRequestClass = new StoreClientRequest();
         $this->updateRequestClass = new UpdateClientRequest();
         $this->indexView = 'clients.index';
@@ -24,13 +24,13 @@ class ClientController extends DashboardController
 
     public function index()
     {
-        $data = $this->repositoryInterface->filter(request()->all());
+        $data = $this->repository->filter(request()->all());
         return view("{$this->baseFolder}{$this->indexView}", compact('data'));
     }
 
     public function toggleStatus($id): JsonResponse
     {
-        $client = $this->repositoryInterface->find($id);
+        $client = $this->repository->find($id);
         if (!$client) {
             return response()->json(['message' => 'Client not found'], 404);
         }

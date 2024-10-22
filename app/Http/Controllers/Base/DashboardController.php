@@ -8,7 +8,7 @@ use Illuminate\Http\UploadedFile;
 
 class DashboardController extends Controller
 {
-    protected $repositoryInterface;
+    protected $repository;
     protected $storeRequestClass;
     protected $updateRequestClass;
     protected $baseFolder = 'admin.';
@@ -22,7 +22,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $data = $this->repositoryInterface->all();
+        $data = $this->repository->all();
         return view("{$this->baseFolder}{$this->indexView}", compact('data'));
 
 
@@ -39,7 +39,7 @@ class DashboardController extends Controller
         $validatedData = $request->validate($this->storeRequestClass->rules());
         $validatedData = $this->excludeFilesFromValidatedData($validatedData);
 
-        $model = $this->repositoryInterface->create($validatedData);
+        $model = $this->repository->create($validatedData);
         if (count($request->allFiles()) > 0) {
             foreach ($request->allFiles() as $inputName => $file) {
                 if ($file instanceof UploadedFile) {
@@ -54,13 +54,13 @@ class DashboardController extends Controller
 
     public function show($id)
     {
-        $model = $this->repositoryInterface->find($id);
+        $model = $this->repository->find($id);
         return view("{$this->baseFolder}{$this->showView}", compact("model"));
     }
 
     public function edit($id)
     {
-        $model = $this->repositoryInterface->find($id);
+        $model = $this->repository->find($id);
         return view("{$this->baseFolder}{$this->editView}", compact('model'));
 
     }
@@ -69,7 +69,7 @@ class DashboardController extends Controller
     {
         $validatedData = $request->validate($this->updateRequestClass->rules($id));
         $validatedData = $this->excludeFilesFromValidatedData($validatedData);
-        $model = $this->repositoryInterface->find($id);
+        $model = $this->repository->find($id);
         if (count($request->allFiles()) > 0) {
             foreach ($request->allFiles() as $inputName => $file) {
                 if ($file instanceof UploadedFile) {
@@ -80,19 +80,19 @@ class DashboardController extends Controller
                 }
             }
         }
-        $this->repositoryInterface->update($validatedData, $id);
+        $this->repository->update($validatedData, $id);
         return redirect()->route("{$this->baseFolder}{$this->indexView}")
             ->with('success', $this->successMessage);
     }
 
     public function destroy($id)
     {
-        $model = $this->repositoryInterface->find($id);
+        $model = $this->repository->find($id);
 
         if ($model) {
             $model->clearMediaCollection();
 
-            $this->repositoryInterface->delete($id);
+            $this->repository->delete($id);
 
             return redirect()->route("{$this->baseFolder}{$this->indexView}")
                 ->with('success', $this->successMessage);

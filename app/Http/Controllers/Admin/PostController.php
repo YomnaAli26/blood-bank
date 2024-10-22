@@ -13,7 +13,7 @@ class PostController extends DashboardController
 {
     public function __construct(PostRepositoryInterface $postRepository)
     {
-        $this->repositoryInterface = $postRepository;
+        $this->repository = $postRepository;
         $this->storeRequestClass = new StorePostRequest();
         $this->updateRequestClass = new UpdatePostRequest();
         $this->exculdeFile = 'image';

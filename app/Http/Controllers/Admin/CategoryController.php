@@ -12,7 +12,7 @@ class CategoryController extends DashboardController
 {
     public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
-        $this->repositoryInterface = $categoryRepository;
+        $this->repository = $categoryRepository;
         $this->storeRequestClass = new StoreCategoryRequest();
         $this->updateRequestClass = new UpdateCategoryRequest();
         $this->indexView = 'categories.index';

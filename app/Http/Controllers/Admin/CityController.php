@@ -12,7 +12,7 @@ class CityController extends DashboardController
 {
     public function __construct(CityRepositoryInterface $cityRepository)
     {
-        $this->repositoryInterface = $cityRepository;
+        $this->repository = $cityRepository;
         $this->storeRequestClass = new StoreCityRequest();
         $this->updateRequestClass = new UpdateCityRequest();
         $this->indexView = 'cities.index';
