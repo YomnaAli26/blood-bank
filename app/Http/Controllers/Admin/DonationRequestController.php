@@ -12,7 +12,7 @@ class DonationRequestController extends DashboardController
 {
     public function __construct(DonationRequestRepositoryInterface $donationRequestRepository)
     {
-        $this->repositoryInterface = $donationRequestRepository;
+        $this->repository = $donationRequestRepository;
         $this->storeRequestClass = new StoreDonationRequest();
         $this->updateRequestClass = new UpdateDonationRequest();
         $this->indexView = 'donation-requests.index';

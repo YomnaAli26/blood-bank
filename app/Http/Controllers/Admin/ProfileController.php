@@ -14,7 +14,7 @@ class ProfileController extends DashboardController
 {
     public function __construct(AdminRepository $adminRepository)
     {
-        $this->repositoryInterface = $adminRepository;
+        $this->repository = $adminRepository;
         $this->updateRequestClass = new UpdateProfileRequest();
         $this->editView = 'profile.edit';
         $this->successMessage = 'Process success';

@@ -10,7 +10,7 @@ class ContactController extends DashboardController
 {
     public function __construct(ContactRepositoryInterface $contactRepository)
     {
-        $this->repositoryInterface = $contactRepository;
+        $this->repository = $contactRepository;
         $this->indexView = 'contact-us.index';
         $this->successMessage = 'Process success';
     }

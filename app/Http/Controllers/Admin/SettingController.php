@@ -13,7 +13,7 @@ class SettingController extends DashboardController
 {
     public function __construct(SettingRepositoryInterface $settingRepository)
     {
-        $this->repositoryInterface = $settingRepository;
+        $this->repository = $settingRepository;
         $this->indexView = 'settings.index';
     }
 
