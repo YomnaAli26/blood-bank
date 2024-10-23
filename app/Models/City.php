@@ -11,9 +11,7 @@ class City extends Model
     use FilterTrait;
 
     protected $fillable = array('name', 'governorate_id');
-    protected $with = [
-        'governorate'
-    ];
+
 
     public function governorate(): BelongsTo
     {

@@ -23,16 +23,7 @@ class Client extends Authenticatable
         'remember_token',
         'password',
     ];
-    protected $with = [
-        'governorates',
-        'bloodTypes',
-        'notifications',
-        'posts',
-        'donationRequests',
-        'city',
-        'bloodType',
 
-    ];
     protected $casts = [
         'password' => 'hashed',
     ];
@@ -82,9 +73,9 @@ class Client extends Authenticatable
         return $this->hasMany(FcmToken::class);
     }
 
-    public function getDeviceTokens(): array
+    public function getDeviceTokens($tokens): array
     {
-        return $this->fcmTokens()->pluck('token')->toArray();
+        return $tokens;
     }
     public function routeNotificationForFcm(): array
     {

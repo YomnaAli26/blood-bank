@@ -9,6 +9,7 @@ use App\Http\Resources\DonationRequestResource;
 use App\Http\Resources\PostResource;
 use App\Models\Client;
 use App\Models\DonationRequest;
+use App\Models\FcmToken;
 use App\Models\Post;
 use App\Notifications\DonationRequestNotification;
 use Illuminate\Http\JsonResponse;
@@ -36,13 +37,11 @@ class DonationRequestController extends Controller
     public function store(StoreDonationRequest $donationRequest)
     {
         $donationRequest = $donationRequest->user()->donationRequests()->create($donationRequest->validated());
-
         $clientsIds = Client::whereHas('governorates', function ($query) use ($donationRequest) {
             $query->where('governorate_id', $donationRequest->city->governorate_id);
         })->whereHas('bloodTypes', function ($query) use ($donationRequest) {
-            $query->where('blood_type_id', $donationRequest->bloodType->blood_type_id);
+            $query->where('blood_type_id', $donationRequest->bloodType->id);
         })->pluck('id')->toArray();
-
         if (count($clientsIds)) {
             DB::beginTransaction();
             try {
@@ -51,6 +50,14 @@ class DonationRequestController extends Controller
                     'content' => $donationRequest->bloodType->name . ' اريد متبرع لفصيلة دم',
                 ]);
                 $notification->clients()->attach($clientsIds);
+                $tokens = FcmToken::whereHas('client',function($query) use($donationRequest){
+                    $query->whereHas('governorates',function($query)  use($donationRequest){
+                        $query->where('governorate_id',$donationRequest->city->governorate_id);
+                    })->whereHas('bloodTypes',function($query) use($donationRequest){
+                        $query->where('blood_type_id',$donationRequest->blood_type_id);
+                    });
+                })->pluck('token')->toArray();
+                dd($tokens);
                 $donationRequest->user()->notify(new DonationRequestNotification($donationRequest));
                 DB::commit();
             } catch (\Exception $exception) {
