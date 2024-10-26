@@ -54,6 +54,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="{{ route('admin.admins.index') }}" class="nav-link">
+                        <i class="nav-icon bi bi-person-lock" title="Contact Us Settings"></i>
+                        <p>Admins</p>
+                    </a>
+                </li>
+
                 <!-- Clients -->
                 <li class="nav-item">
                     <a href="{{ route("admin.clients.index") }}" class="nav-link">
@@ -61,6 +68,22 @@
                         <p>Clients</p>
                     </a>
                 </li>
+                <!-- Roles -->
+                <li class="nav-item">
+                    <a href="{{ route("admin.roles.index") }}" class="nav-link">
+                        <i class="nav-icon bi bi-person-badge"></i>
+                        <p>Roles</p>
+                    </a>
+                </li>
+
+                <!-- Permissions -->
+                <li class="nav-item">
+                    <a href="{{ route("admin.permissions.index") }}" class="nav-link">
+                        <i class="nav-icon bi bi-shield-lock"></i>
+                        <p>Permissions</p>
+                    </a>
+                </li>
+
 
                 <!-- Posts -->
                 <li class="nav-item">
@@ -83,6 +106,7 @@
                         <p>Contact Us</p>
                     </a>
                 </li>
+
 
                 <li class="nav-item">
                     <a href="{{ route("admin.settings.index") }}" class="nav-link">
