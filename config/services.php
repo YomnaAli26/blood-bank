@@ -40,6 +40,7 @@ return [
         'from' => env('TWILIO_FROM'),
     ],
     'fcm' => [
+        'credentials' => env('GOOGLE_APPLICATION_CREDENTIALS'),
         'server_key' => env('FCM_SERVER_KEY'),
         'sender_id' => env('FCM_SENDER_ID'),
     ],

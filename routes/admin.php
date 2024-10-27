@@ -11,6 +11,9 @@ Route::middleware('auth:admin')->group(function () {
     Route::resource('/categories','CategoryController');
     Route::resource('/posts','PostController');
     Route::resource('/clients','ClientController');
+    Route::resource('/admins','AdminController');
+    Route::resource('/roles','RoleController');
+    Route::resource('/permissions','PermissionController');
     Route::resource('/donation-requests','DonationRequestController');
     Route::resource('/contact-us','ContactController')->only(['index','destroy']);
     Route::resource('/profile','ProfileController')->only(['edit','update']);

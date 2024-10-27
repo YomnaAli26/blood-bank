@@ -23,16 +23,7 @@ class Client extends Authenticatable
         'remember_token',
         'password',
     ];
-    protected $with = [
-        'governorates',
-        'bloodTypes',
-        'notifications',
-        'posts',
-        'donationRequests',
-        'city',
-        'bloodType',
 
-    ];
     protected $casts = [
         'password' => 'hashed',
     ];

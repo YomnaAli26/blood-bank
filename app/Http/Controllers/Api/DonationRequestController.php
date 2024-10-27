@@ -4,17 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDonationRequest;
-use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Resources\DonationRequestResource;
-use App\Http\Resources\PostResource;
 use App\Models\Client;
 use App\Models\DonationRequest;
-use App\Models\Post;
+use App\Models\FcmToken;
 use App\Notifications\DonationRequestNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use function App\Helpers\responseJson;
 
 class DonationRequestController extends Controller
@@ -36,13 +34,12 @@ class DonationRequestController extends Controller
     public function store(StoreDonationRequest $donationRequest)
     {
         $donationRequest = $donationRequest->user()->donationRequests()->create($donationRequest->validated());
-
-        $clientsIds = Client::whereHas('governorates', function ($query) use ($donationRequest) {
+        $clients = Client::whereHas('governorates', function ($query) use ($donationRequest) {
             $query->where('governorate_id', $donationRequest->city->governorate_id);
         })->whereHas('bloodTypes', function ($query) use ($donationRequest) {
-            $query->where('blood_type_id', $donationRequest->bloodType->blood_type_id);
-        })->pluck('id')->toArray();
-
+            $query->where('blood_type_id', $donationRequest->bloodType->id);
+        })->get();
+        $clientsIds = $clients->pluck('id')->toArray();
         if (count($clientsIds)) {
             DB::beginTransaction();
             try {
@@ -51,7 +48,8 @@ class DonationRequestController extends Controller
                     'content' => $donationRequest->bloodType->name . ' اريد متبرع لفصيلة دم',
                 ]);
                 $notification->clients()->attach($clientsIds);
-                $donationRequest->user()->notify(new DonationRequestNotification($donationRequest));
+
+                Notification::send($clients, new DonationRequestNotification($donationRequest));
                 DB::commit();
             } catch (\Exception $exception) {
                 DB::rollBack();

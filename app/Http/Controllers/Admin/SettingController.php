@@ -7,6 +7,7 @@ use App\Models\Setting;
 use App\Repositories\Interfaces\SettingRepositoryInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 
 class SettingController extends DashboardController
@@ -21,8 +22,12 @@ class SettingController extends DashboardController
     {
         $settings = $request->except('_token','_method');
         foreach ($settings as $key => $value) {
-            $this->repositoryInterface->findByKey($key)->update(['value' => $value]);
+            $this->repository->findByKey($key)->update(['value' => $value]);
         }
+        Cache::forget('settings');
+        Cache::remember('settings', 60, function () {
+            return $this->repository->all()->toArray();
+        });
         return redirect()->route("{$this->baseFolder}{$this->indexView}")
             ->with('success', $this->successMessage);
 
