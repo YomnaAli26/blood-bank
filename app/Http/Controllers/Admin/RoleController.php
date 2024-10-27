@@ -27,7 +27,20 @@ class RoleController extends DashboardController
     {
         $validatedData = $request->validate($this->storeRequestClass->rules());
         $role = Role::create(['name' => $validatedData['name']]);
-        !empty($validatedData['permissions']) ?? $role->syncPermissions($validatedData['permissions']);
+        $validatedData['permissions'] ??= [];
+        $role->syncPermissions($validatedData['permissions']);
+        return redirect()->route("{$this->baseFolder}{$this->indexView}")
+            ->with('success', $this->successMessage);
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $validatedData = $request->validate($this->updateRequestClass->rules($id));
+        $role = Role::findById($id);
+        $role->update(['name' => $validatedData['name']]);
+        $validatedData['permissions'] ??= [];
+        $role->syncPermissions($validatedData['permissions']);
         return redirect()->route("{$this->baseFolder}{$this->indexView}")
             ->with('success', $this->successMessage);
     }

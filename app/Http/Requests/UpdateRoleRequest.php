@@ -20,10 +20,12 @@ class UpdateRoleRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules($id): array
     {
         return [
-            'name' => ['sometimes', 'string', 'min:3', 'max:255'],
+            'name' => ['sometimes', 'string', 'min:3', 'max:255',Rule::unique("roles","name")->ignore($id)],
+            'permissions' => ['array'],
+            'permissions.*' => ['string', 'exists:permissions,name'],
 
         ];
     }

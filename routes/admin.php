@@ -12,7 +12,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::resource('/posts','PostController');
     Route::resource('/clients','ClientController');
     Route::resource('/admins','AdminController');
-    Route::resource('/roles','RoleController');
+    Route::resource('/roles','RoleController')->except(['show']);
     Route::resource('/permissions','PermissionController');
     Route::resource('/donation-requests','DonationRequestController');
     Route::resource('/contact-us','ContactController')->only(['index','destroy']);

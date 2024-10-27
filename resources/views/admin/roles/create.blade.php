@@ -1,6 +1,5 @@
 @inject("permissions", "Spatie\Permission\Models\Permission")
 @extends("admin.layout.master")
-
 @section("title", "Roles")
 @section("breadcrumb_header", "Roles")
 @section("breadcrumb")

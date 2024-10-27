@@ -1,4 +1,4 @@
-@inject("governorates","App\Models\Governorate")
+@inject("permissions", "Spatie\Permission\Models\Permission")
 @extends("admin.layout.master")
 @section("title","Cities")
 @section("breadcrumb_header","Cities")
@@ -17,7 +17,7 @@
                         <div class="card-header">
                             <div class="card-title">Update city</div>
                         </div> <!--end::Header--> <!--begin::Form-->
-                        <form class="needs-validation" method="post" action="{{ route("admin.cities.update",$model->id) }}"
+                        <form class="needs-validation" method="post" action="{{ route("admin.roles.update",$model->id) }}"
                               novalidate> <!--begin::Body-->
                             @csrf
                             @method("PUT")
@@ -32,19 +32,26 @@
                                         @enderror
                                         <div class="valid-feedback">Looks good!</div>
                                     </div> <!--end::Col--> <!--begin::Col-->
-                                    <div class="col-md-12"><label for="validationCustom01" class="form-label">Governorates</label>
-                                        <select class="form-control" name="governorate_id">
-                                            @foreach($governorates->all() as $governorate)
-                                                <option @selected($model->governorate_id == $governorate->id) value="{{$governorate->id}}">
-                                                    {{$governorate->name}}
-                                                </option>
+                                    <!--begin::Col for Permissions-->
+                                    <div class="col-md-12">
+                                        <label class="form-label">Permissions</label>
+                                        <div class="form-check">
+                                            @foreach($permissions->all() as $permission)
+                                                <div class="form-check">
+                                                    <input type="checkbox" name="permissions[]" value="{{ $permission->name }}" class="form-check-input" id="permission-{{ $permission->id }}"
+                                                    @checked( $model->permissions->contains('name',$permission->name ))
+                                                    >
+                                                    <label class="form-check-label" for="permission-{{ $permission->id }}">
+                                                        {{ $permission->name }}
+                                                    </label>
+                                                </div>
                                             @endforeach
-                                        </select>
-                                        @error('governorate_id')
+                                        </div>
+                                        @error('permissions')
                                         <div class="error-message">{{ $message }}</div>
                                         @enderror
                                         <div class="valid-feedback">Looks good!</div>
-                                    </div> <!--end::Col--> <!--begin::Col-->
+                                    </div> <!--end::Col-->
                                 </div> <!--end::Row-->
                             </div> <!--end::Body--> <!--begin::Footer-->
                             <div class="card-footer">
