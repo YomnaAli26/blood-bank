@@ -12,4 +12,10 @@ class ContactRepository extends BaseRepository implements ContactRepositoryInter
     {
         parent::__construct($contact);
     }
+
+    public function filter($data)
+    {
+        return Contact::filter($data)->paginate(10);
+
+    }
 }
