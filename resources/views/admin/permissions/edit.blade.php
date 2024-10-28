@@ -1,10 +1,10 @@
-@inject("roles","Spatie\Permission\Models\Role")
 @extends("admin.layout.master")
-@section("title","Admins")
-@section("breadcrumb_header","Admins")
+@section("title","Permissions")
+@section("breadcrumb_header","Permissions")
 @section("breadcrumb")
     @parent
-    <li class="breadcrumb-item active" aria-current="page">Admins</li>
+    <li class="breadcrumb-item active" aria-current="page">permissions
+    </li>
 @endsection
 @section("content")
     <div class="app-content"> <!--begin::Container-->
@@ -15,16 +15,16 @@
                     <!--begin::Form Validation-->
                     <div class="card  card-outline mb-4"> <!--begin::Header-->
                         <div class="card-header">
-                            <div class="card-title">Update Admin</div>
+                            <div class="card-title">Update permission</div>
                         </div> <!--end::Header--> <!--begin::Form-->
-                        <form class="needs-validation" method="post" action="{{ route("admin.admins.update",$model->id) }}"
-                              enctype="multipart/form-data" novalidate> <!--begin::Body-->
+                        <form class="needs-validation" method="post" action="{{ route("admin.permissions.update",$model->id) }}"
+                              novalidate> <!--begin::Body-->
                             @csrf
                             @method("PUT")
                             <div class="card-body"> <!--begin::Row-->
                                 <div class="row g-3"> <!--begin::Col-->
-                                    <div class="col-md-12">
-                                        <label for="validationCustom01" class="form-label">Name</label>
+                                    <div class="col-md-12"><label for="validationCustom01"
+                                                                  class="form-label">Name</label>
                                         <input type="text" name="name" value="{{ $model->name }}" class="form-control"
                                                id="validationCustom01" required>
                                         @error('name')
@@ -32,28 +32,7 @@
                                         @enderror
                                         <div class="valid-feedback">Looks good!</div>
                                     </div> <!--end::Col--> <!--begin::Col-->
-
-                                    <div class="col-md-12">
-                                        <label for="validationCustom01" class="form-label">Email</label>
-                                        <input type="email" name="email" value="{{  $model->email }}"  class="form-control"
-                                               id="validationCustom01" required>
-
-                                        @error('email')
-                                        <div class="error-message">{{ $message }}</div>
-                                        @enderror
-                                        <div class="valid-feedback">Looks good!</div>
-                                    </div> <!--end::Col--> <!--begin::Col-->
-                                    <div class="col-md-12">
-                                        <label for="validationCustom01" class="form-label">Password</label>
-                                        <input type="password" name="password"  class="form-control"
-                                               id="validationCustom01" required>
-
-                                        @error('password')
-                                        <div class="error-message">{{ $message }}</div>
-                                        @enderror
-                                        <div class="valid-feedback">Looks good!</div>
-                                    </div> <!--end::Col--> <!--begin::Col-->
-
+                                    <!--begin::Col for Permissions-->
                                 </div> <!--end::Row-->
                             </div> <!--end::Body--> <!--begin::Footer-->
                             <div class="card-footer">

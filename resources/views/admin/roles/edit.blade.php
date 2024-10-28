@@ -1,10 +1,10 @@
 @inject("permissions", "Spatie\Permission\Models\Permission")
 @extends("admin.layout.master")
-@section("title","Cities")
-@section("breadcrumb_header","Cities")
+@section("title","Roles")
+@section("breadcrumb_header","Roles")
 @section("breadcrumb")
     @parent
-    <li class="breadcrumb-item active" aria-current="page">cities</li>
+    <li class="breadcrumb-item active" aria-current="page">roles</li>
 @endsection
 @section("content")
     <div class="app-content"> <!--begin::Container-->
@@ -15,7 +15,7 @@
                     <!--begin::Form Validation-->
                     <div class="card  card-outline mb-4"> <!--begin::Header-->
                         <div class="card-header">
-                            <div class="card-title">Update city</div>
+                            <div class="card-title">Update role</div>
                         </div> <!--end::Header--> <!--begin::Form-->
                         <form class="needs-validation" method="post" action="{{ route("admin.roles.update",$model->id) }}"
                               novalidate> <!--begin::Body-->
