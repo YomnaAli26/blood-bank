@@ -3,9 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return \Illuminate\Support\Facades\Hash::make("123456789");
-});
+Route::view('/','site.home')->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
