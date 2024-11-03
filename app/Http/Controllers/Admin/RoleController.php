@@ -6,7 +6,6 @@ use App\Http\Controllers\Base\DashboardController;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 use Spatie\Permission\Models\Role;
 
 
@@ -26,7 +25,7 @@ class RoleController extends DashboardController
     public function store(Request $request)
     {
         $validatedData = $request->validate($this->storeRequestClass->rules());
-        $role = Role::create(['name' => $validatedData['name']]);
+        $role = $this->repository->create(['name' => $validatedData['name']]);
         $validatedData['permissions'] ??= [];
         $role->syncPermissions($validatedData['permissions']);
         return redirect()->route("{$this->baseFolder}{$this->indexView}")
@@ -37,12 +36,22 @@ class RoleController extends DashboardController
     {
 
         $validatedData = $request->validate($this->updateRequestClass->rules($id));
-        $role = Role::findById($id);
+        $role = $this->repository->findById($id);
         $role->update(['name' => $validatedData['name']]);
         $validatedData['permissions'] ??= [];
         $role->syncPermissions($validatedData['permissions']);
         return redirect()->route("{$this->baseFolder}{$this->indexView}")
             ->with('success', $this->successMessage);
+    }
+
+    public function destroy($id)
+    {
+        $role = $this->repository->findById($id);
+        $role->syncPermissions([]);
+        $role->delete();
+        return redirect()->route("{$this->baseFolder}{$this->indexView}")
+            ->with('success', $this->successMessage);
+
     }
 
 }

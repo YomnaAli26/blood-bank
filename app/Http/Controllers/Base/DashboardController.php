@@ -89,13 +89,13 @@ class DashboardController extends Controller
         $model = $this->repository->find($id);
 
         if ($model) {
-            $model->clearMediaCollection();
-
-            $this->repository->delete($id);
-
-            return redirect()->route("{$this->baseFolder}{$this->indexView}")
-                ->with('success', $this->successMessage);
+            // Check if the model has media before attempting to clear the media collection
+            if (method_exists($model, 'hasMedia') && $model->hasMedia()) {
+                $model->clearMediaCollection();
+            }
         }
+        $this->repository->delete($id);
+
         return redirect()->route("{$this->baseFolder}{$this->indexView}")
             ->with('error', 'Model not found');
     }

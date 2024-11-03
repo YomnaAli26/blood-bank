@@ -1,3 +1,4 @@
+@inject("roles","Spatie\Permission\Models\Role")
 @extends("admin.layout.master")
 @section("title","Admins")
 @section("breadcrumb_header","Admins")

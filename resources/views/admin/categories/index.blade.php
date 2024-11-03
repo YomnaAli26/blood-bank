@@ -12,12 +12,8 @@
             <!--begin::Row-->
             <div class="row">
                 <div class="col-md-12">
-                    @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
+                    <x-alert type="success"/>
+                    <x-alert type="danger"/>
                     <div class="card mb-4">
                         <div class="card-header">
                             <h3 class="card-title">Categories</h3>
