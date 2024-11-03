@@ -6,6 +6,7 @@ use App\Http\Controllers\Base\DashboardController;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Repositories\Interfaces\AdminRepositoryInterface;
+use Illuminate\View\View;
 
 
 class AdminController extends DashboardController
@@ -19,6 +20,11 @@ class AdminController extends DashboardController
         $this->createView = 'admins.create';
         $this->editView = 'admins.edit';
         $this->successMessage = 'Process success';
+    }
+
+    public function changePassword(): View
+    {
+        return view("{$this->baseFolder}admins.change-password");
     }
 
 }

@@ -18,14 +18,13 @@ class DashboardController extends Controller
     protected $successMessage;
     protected $showView;
     protected $exculdeFile;
+    protected $relations;
 
 
     public function index()
     {
-        $data = $this->repository->all();
+        $this->relations ?  $data = $this->repository->with($this->relations) : $data = $this->repository->all();
         return view("{$this->baseFolder}{$this->indexView}", compact('data'));
-
-
     }
 
     public function create()

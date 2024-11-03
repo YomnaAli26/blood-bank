@@ -40,4 +40,9 @@ class BaseRepository
         return $this->find($id)->delete();
 
     }
+
+    public function with($relations)
+    {
+        return $this->model->with($relations);
+    }
 }

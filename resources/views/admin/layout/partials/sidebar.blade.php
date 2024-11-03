@@ -60,6 +60,13 @@
                         <p>Admins</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.change-password') }}" class="nav-link">
+                        <i class="nav-icon bi bi-shield-lock" title="Change Password"></i>
+                        <p>Change Password</p>
+                    </a>
+                </li>
+
 
                 <!-- Clients -->
                 <li class="nav-item">

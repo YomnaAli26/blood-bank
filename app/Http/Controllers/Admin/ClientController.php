@@ -20,11 +20,12 @@ class ClientController extends DashboardController
         $this->createView = 'clients.create';
         $this->editView = 'clients.edit';
         $this->successMessage = 'Process success';
+        $this->relations  = ['city','bloodType'];
     }
 
     public function index()
     {
-        $data = $this->repository->filter(request()->all());
+        $data = $this->repository->filter(request()->all(),$this->relations);
         return view("{$this->baseFolder}{$this->indexView}", compact('data'));
     }
 

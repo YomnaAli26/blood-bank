@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AutoCheckPermission;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -34,6 +35,9 @@ return Application::configure(basePath: dirname(__DIR__))
                 return route('admin.login');
             }
         });
+        $middleware->alias([
+            'auto-check-permission' => AutoCheckPermission::class,
+        ]);
 
     })
     ->withExceptions(function (Exceptions $exceptions) {
