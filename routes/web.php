@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Site\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/','site.home')->name('home');
+Route::get('/',HomeController::class)->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

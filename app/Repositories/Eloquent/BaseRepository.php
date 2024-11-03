@@ -7,11 +7,22 @@ use App\Repositories\Interfaces\BloodTypeRepositoryInterface;
 class BaseRepository
 {
     public function __construct(protected $model)
-    {}
+    {
+    }
 
     public function all()
     {
-        return $this->model->latest()->paginate(10);
+        return $this->model->latest()->get();
+    }
+
+    public function paginate($perPage = 10)
+    {
+        return $this->model->latest()->paginate($perPage);
+    }
+
+    public function filter($data,$relations=[])
+    {
+        return $this->model->with($relations)->filter($data);
     }
 
     public function create(array $data)
@@ -43,6 +54,6 @@ class BaseRepository
 
     public function with($relations)
     {
-        return $this->model->with($relations);
+        return $this->model->with($relations)->get();
     }
 }

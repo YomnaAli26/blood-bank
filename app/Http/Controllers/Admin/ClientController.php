@@ -25,7 +25,7 @@ class ClientController extends DashboardController
 
     public function index()
     {
-        $data = $this->repository->filter(request()->all(),$this->relations);
+        $data = $this->repository->filter(request()->all(),$this->relations)->paginate(10);
         return view("{$this->baseFolder}{$this->indexView}", compact('data'));
     }
 

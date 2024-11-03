@@ -23,7 +23,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $this->relations ?  $data = $this->repository->with($this->relations) : $data = $this->repository->all();
+        $this->relations ?  $data = $this->repository->with($this->relations) : $data = $this->repository->paginate();
         return view("{$this->baseFolder}{$this->indexView}", compact('data'));
     }
 
