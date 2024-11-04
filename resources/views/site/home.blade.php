@@ -1,7 +1,6 @@
-
 @extends("site.layout.master")
 @section("content")
-    <!--intro-->
+    <!-- Intro Section -->
     <div class="intro">
         <div id="slider" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -15,8 +14,8 @@
                         <div class="col-lg-5">
                             <h3>بنك الدم نمضى قدما لصحة أفضل</h3>
                             <p>
-                                هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على
-                                الشكل الخارجي للنص.
+                                هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز
+                                على الشكل الخارجي للنص.
                             </p>
                             <a href="#">المزيد</a>
                         </div>
@@ -27,8 +26,8 @@
                         <div class="col-lg-5">
                             <h3>بنك الدم نمضى قدما لصحة أفضل</h3>
                             <p>
-                                هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على
-                                الشكل الخارجي للنص.
+                                هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز
+                                على الشكل الخارجي للنص.
                             </p>
                             <a href="#">المزيد</a>
                         </div>
@@ -39,8 +38,8 @@
                         <div class="col-lg-5">
                             <h3>بنك الدم نمضى قدما لصحة أفضل</h3>
                             <p>
-                                هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على
-                                الشكل الخارجي.
+                                هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز
+                                على الشكل الخارجي.
                             </p>
                             <a href="#">المزيد</a>
                         </div>
@@ -50,20 +49,21 @@
         </div>
     </div>
 
-    <!--about-->
+    <!-- About Section -->
     <div class="about">
         <div class="container">
             <div class="col-lg-6 text-center">
                 <p>
                     <span>بنك الدم</span> هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن
-                    التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في الصفحة التي يقرأها. ولذلك يتم استخدام طريقة لوريم
+                    التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في الصفحة التي يقرأها. ولذلك يتم استخدام طريقة
+                    لوريم
                     إيبسوم لأنها تعطي توزيعاَ طبيعياَ.
                 </p>
             </div>
         </div>
     </div>
 
-    <!--articles-->
+    <!-- Articles Section -->
     <div class="articles">
         <div class="container title">
             <div class="head-text">
@@ -73,35 +73,29 @@
         <div class="view">
             <div class="container">
                 <div class="row">
-                    <!-- Set up your HTML -->
                     <div class="owl-carousel articles-carousel">
                         @foreach($posts as $post)
                             <div class="card">
                                 <div class="photo">
                                     <img src="{{ $post->getFirstMediaUrl('image') }}" class="card-img-top" alt="...">
-                                    <a href="{{ route("site.posts.show",$post->id) }}" class="click">المزيد</a>
+                                    <a href="{{ route('site.posts.show', $post->id) }}" class="click">المزيد</a>
                                 </div>
                                 <a href="#" class="favourite">
                                     <i class="far fa-heart"></i>
                                 </a>
-
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $post->title }}</h5>
-                                    <p class="card-text">
-                                        {{ $post->description }}
-                                    </p>
+                                    <p class="card-text">{{ $post->description }}</p>
                                 </div>
                             </div>
-
                         @endforeach
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!--requests-->
+    <!-- Requests Section -->
     <div class="requests">
         <div class="container">
             <div class="head-text">
@@ -114,13 +108,11 @@
                     <div class="col-md-5 blood">
                         <div class="form-group">
                             <div class="inside-select">
-                                <select class="form-control" id="exampleFormControlSelect1">
+                                <select class="form-control" id="blood_type_id" name="blood_type_id">
                                     <option selected disabled>اختر فصيلة الدم</option>
                                     @foreach($bloodTypes as $bloodType)
-                                        <option>{{$bloodType->name}}</option>
-
+                                        <option value="{{ $bloodType->id }}">{{ $bloodType->name }}</option>
                                     @endforeach
-
                                 </select>
                                 <i class="fas fa-chevron-down"></i>
                             </div>
@@ -129,12 +121,11 @@
                     <div class="col-md-5 city">
                         <div class="form-group">
                             <div class="inside-select">
-                                <select class="form-control" id="exampleFormControlSelect1">
+                                <select class="form-control" id="city_id" name="city_id">
                                     <option selected disabled>اختر المدينة</option>
                                     @foreach($cities as $city)
-                                        <option>{{ $city->name }}</option>
+                                        <option value="{{ $city->id }}">{{ $city->name }}</option>
                                     @endforeach
-
                                 </select>
                                 <i class="fas fa-chevron-down"></i>
                             </div>
@@ -146,22 +137,21 @@
                         </button>
                     </div>
                 </form>
-                <div class="patients">
+
+                <div class="patients" id="requests">
                     @foreach($donationRequests as $donationRequest)
                         <div class="details">
                             <div class="blood-type">
                                 <h2 dir="ltr">{{ $donationRequest->bloodType->name }}</h2>
                             </div>
                             <ul>
-                                <li><span>اسم الحالة:</span>{{ $donationRequest->patient_name }}</li>
+                                <li><span>اسم الحالة:</span> {{ $donationRequest->patient_name }}</li>
                                 <li><span>مستشفى:</span> {{ $donationRequest->hospital_name }}</li>
                                 <li><span>المدينة:</span> {{ $donationRequest->city->name }}</li>
                             </ul>
                             <a href="inside-request.html">التفاصيل</a>
                         </div>
                     @endforeach
-
-
                 </div>
                 <div class="more">
                     <a href="donation-requests.html">المزيد</a>
@@ -170,7 +160,7 @@
         </div>
     </div>
 
-    <!--contact-->
+    <!-- Contact Section -->
     <div class="contact">
         <div class="container">
             <div class="col-md-7">
@@ -188,7 +178,7 @@
         </div>
     </div>
 
-    <!--app-->
+    <!-- App Section -->
     <div class="app">
         <div class="container">
             <div class="row">
@@ -220,10 +210,50 @@
         </div>
     </div>
 @endsection
-@push('scripts')
-    <script src="">
-        document.getElementById("searchForm").addEventListener('submit',function () {
 
-        })
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#searchForm').on('submit', function (e) {
+                e.preventDefault(); // Prevent the default form submission
+
+                // Get the selected values from the dropdowns
+                var bloodType = $('#blood_type_id').val();
+                var city = $('#city_id').val();
+
+                // Perform the AJAX request
+                $.ajax({
+                    url: "{{ route('site.home') }}",
+                    type: 'GET',
+                    data: {
+                        blood_type_id: bloodType,
+                        city_id: city,
+                    },
+                    success: function (response) {
+                        if (response.message === 'success') {
+                            $('#requests').empty(); // Clear existing requests
+                            response.requests.forEach(function (request) {
+                                $('#requests').append(`
+                                    <div class="details">
+                                        <div class="blood-type">
+                                            <h2 dir="ltr">${request.bloodType.name}</h2>
+                                        </div>
+                                        <ul>
+                                            <li><span>اسم الحالة:</span> ${request.patient_name}</li>
+                                            <li><span>مستشفى:</span> ${request.hospital_name}</li>
+                                            <li><span>المدينة:</span> ${request.city.name}</li>
+                                        </ul>
+                                        <a href="inside-request.html">التفاصيل</a>
+                                    </div>
+                                `);
+                            });
+                        }
+                    },
+                    error: function () {
+                        alert('حدث خطأ أثناء معالجة الطلب.');
+                    }
+                });
+            });
+        });
     </script>
 @endpush

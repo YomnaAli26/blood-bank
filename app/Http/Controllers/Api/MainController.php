@@ -26,6 +26,7 @@ class MainController extends Controller
         $cities =City::filter($request->query())->get();
         return responseJson(1, "success", CityResource::collection($cities));
 
+
     }
 
     public function categories(): JsonResponse
