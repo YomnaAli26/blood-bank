@@ -79,7 +79,7 @@
                             <div class="card">
                                 <div class="photo">
                                     <img src="{{ $post->getFirstMediaUrl('image') }}" class="card-img-top" alt="...">
-                                    <a href="article-details.html" class="click">المزيد</a>
+                                    <a href="{{ route("site.posts.show",$post->id) }}" class="click">المزيد</a>
                                 </div>
                                 <a href="#" class="favourite">
                                     <i class="far fa-heart"></i>
