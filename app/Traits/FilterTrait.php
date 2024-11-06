@@ -15,7 +15,7 @@ trait FilterTrait
                     if (is_array($value)) {
                         $builder->whereIn($field, $value);
                     }
-                    $builder->where($field, 'LIKE', "%$value%");
+                    $builder->where($field, '=', "$value");
                 }
             }
         }

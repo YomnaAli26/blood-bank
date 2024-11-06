@@ -23,14 +23,20 @@ class HomeController extends Controller
 
     public function __invoke(PostRepositoryInterface $postRepository,Request $request)
     {
-        $donationRequests = $this->donationRequestService->getRequests(filters: $request->query(),relations: ['city','bloodType']);
+
+        $donationRequests = $this->donationRequestService->getRequests(relations: ['city','bloodType']);
         $posts = $this->postService->getPosts();
         $bloodTypes = $this->bloodTypeService->getBloodTypes();
         $cities = $this->cityService->getCities();
         if ($request->ajax()) {
+            $filteredRequests = $this->donationRequestService->getRequests(
+                filters: $request->only(['blood_type_id', 'city_id']),
+                relations: ['city', 'bloodType']
+            );
+
             return response()->json([
-                'message'=>'success',
-                'requests'=>$donationRequests,
+                'message' => 'success',
+                'requests' => $filteredRequests,
             ]);
         }
         return view('site.home', get_defined_vars());

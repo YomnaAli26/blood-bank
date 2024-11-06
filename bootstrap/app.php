@@ -24,18 +24,28 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectUsersTo(function (){
-           if (Auth::guard('admin')->check())
+           if (Auth::guard('admin')->guest())
            {
                return route('admin.dashboard');
            }
+           if (Auth::guard('web')->guest())
+           {
+               return route('site.home');
+           }
 
         });
-        $middleware->redirectGuestsTo(function (){
-            if (Auth::guard('admin')->guest())
-            {
+        $middleware->redirectGuestsTo(function () {
+            if (Auth::guard('admin')->check()) {
                 return route('admin.login');
             }
+
+            if (Auth::guard('web')->check()) {
+                return route('login');
+            }
+
+            return route('login');
         });
+
         $middleware->alias([
             'auto-check-permission' => AutoCheckPermission::class,
         ]);
