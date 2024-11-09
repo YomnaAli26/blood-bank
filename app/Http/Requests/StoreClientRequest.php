@@ -23,14 +23,14 @@ class StoreClientRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:clients'],
+            'email' => ['required', 'string','lowercase', 'email', 'max:255', 'unique:clients'],
             'phone' => ['required', 'string', 'max:255', 'unique:clients'],
-            'password' => ['required', 'string', 'min:8'],
+            'password' => ['required', 'string', 'min:8','confirmed'],
             'b_o_d' => ['required', 'date','before_or_equal:today'],
             'last_donation_date' => ['required', 'date','before_or_equal:today'],
             'city_id' => ['required','exists:cities,id'],
             'blood_type_id' => ['required','exists:blood_types,id'],
-            'is_active' => ['required','boolean'],
+            'is_active' => ['sometimes','boolean'],
 
         ];
     }

@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="details col-md-4">
-                    <img src="imgs/logo.png">
+                    <img src="{{asset('site/')}}/imgs/logo.png">
                     <h4>بنك الدم</h4>
                     <p>
                         هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى،
@@ -30,10 +30,10 @@
                     <div class="availabe">
                         <p>متوفر على</p>
                         <a href="#">
-                            <img src="imgs/google1.png">
+                            <img src="{{asset('site/')}}/imgs/google1.png">
                         </a>
                         <a href="#">
-                            <img src="imgs/ios1.png">
+                            <img src="{{asset('site/')}}/imgs/ios1.png">
                         </a>
                     </div>
                 </div>

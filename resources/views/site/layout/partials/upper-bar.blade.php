@@ -21,6 +21,12 @@
             <!-- not a member-->
             <div class="col-lg-4">
                 <div class="info" dir="ltr">
+                    @guest
+                    <div class="accounts" dir="ltr">
+                        <a href="{{ route("login") }}" class="signin">الدخول</a>
+                        <a href="{{ route("register") }}" class="create-new">إنشاء حساب جديد</a>
+                    </div>
+                    @else
                     <div class="phone">
                         <i class="fas fa-phone-alt"></i>
                         <p>+966506954964</p>
@@ -29,6 +35,7 @@
                         <i class="far fa-envelope"></i>
                         <p>name@name.com</p>
                     </div>
+                    @endguest
                 </div>
 
                 <!--I'm a member

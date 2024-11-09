@@ -22,10 +22,10 @@ public function __construct(public DonationRequestService  $donationRequestServi
         return responseJson(1, "success", DonationRequestResource::collection($donationRequests));
     }
 
-    public function show($id): JsonResponse
+    public function show($id)
     {
         $donationRequest = $this->donationRequestService->showRequest($id);
-        return responseJson(1, "success", DonationRequestResource::make($donationRequest));
+        return view("site.request",compact("donationRequest"));
 
     }
 

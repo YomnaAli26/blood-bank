@@ -8,7 +8,7 @@
 
     <title>Blood Bank</title>
 </head>
-<body>
+<body class="@yield("class_body")">
 <!--upper-bar-->
 @include("site.layout.partials.upper-bar")
 

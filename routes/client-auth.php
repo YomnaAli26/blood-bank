@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
-use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
-use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
-use App\Http\Controllers\Admin\Auth\NewPasswordController;
-use App\Http\Controllers\Admin\Auth\PasswordController;
-use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Admin\Auth\RegisteredUserController;
-use App\Http\Controllers\Admin\Auth\VerifyEmailController;
+use App\Http\Controllers\Site\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Site\Auth\ConfirmablePasswordController;
+use App\Http\Controllers\Site\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Site\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Site\Auth\NewPasswordController;
+use App\Http\Controllers\Site\Auth\PasswordController;
+use App\Http\Controllers\Site\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Site\Auth\RegisteredUserController;
+use App\Http\Controllers\Site\Auth\VerifyEmailController;
+use App\Http\Controllers\Site\MainController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest:web')->group(function () {
@@ -33,6 +34,9 @@ Route::middleware('guest:web')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
+
+    Route::get('/cities/{governorate}',[MainController::class,'cities'])->name('cities');
+
 });
 
 Route::middleware('auth:web')->group(function () {
