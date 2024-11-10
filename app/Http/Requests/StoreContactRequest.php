@@ -22,6 +22,7 @@ class StoreContactRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'client_id'=>['required','exists:clients,id'],
             'message_title'=>['required','string','min:3'],
             'message_content'=>['required','string','min:10'],
         ];

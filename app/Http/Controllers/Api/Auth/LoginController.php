@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\ClientLoginRequest;
 use App\Http\Resources\ClientResource;
 use App\Models\Client;
 use Illuminate\Http\JsonResponse;
@@ -18,7 +18,7 @@ class LoginController extends Controller
      * Handle the incoming request.
      * @throws ValidationException
      */
-    public function __invoke(LoginRequest $request): JsonResponse
+    public function __invoke(ClientLoginRequest $request): JsonResponse
     {
         $credentials = $request->validated();
         $client = Client::query()->wherePhone($credentials['phone'])->first();

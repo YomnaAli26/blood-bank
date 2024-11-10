@@ -10,6 +10,9 @@ require __DIR__ . '/client-auth.php';
 
 Route::group(['as'=>'site.','middleware'=>'auth'], function () {
     Route::view('/about', 'site.about')->name('about');
+    Route::view('/who-are', 'site.who-are')->name('who-are');
+    Route::view('/contact-us', 'site.contact-us')->name('contact-us');
+    Route::post('/contact-us', [MainController::class,'contactUs'])->name('contact-us');
     Route::get('/posts/{post}',[PostController::class,'show'])->name('posts.show');
     Route::post('toggle-favourite-post', [PostController::class, 'toggle'])->name('posts.toggle');
     Route::get('/',HomeController::class)->name('home');

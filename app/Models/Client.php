@@ -68,6 +68,8 @@ class Client extends Authenticatable
         return $this->belongsToMany(Governorate::class);
     }
 
+
+
     public function fcmTokens(): HasMany
     {
         return $this->hasMany(FcmToken::class);

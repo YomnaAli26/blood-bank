@@ -24,26 +24,27 @@
                             <a class="nav-link" href="{{ route('site.requests.index') }}">طلبات التبرع</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="who-are-us.html">من نحن</a>
+                            <a class="nav-link" href="{{ route("site.who-are") }}">من نحن</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact-us.html">اتصل بنا</a>
+                            <a class="nav-link" href="{{ route("site.contact-us") }}">اتصل بنا</a>
                         </li>
                     </ul>
 
                     <!-- Donate Button -->
-                    <a href="#" class="donate">
+                    <a href="#" class="donate mx-2">
                         <img src="{{ asset('site/imgs/transfusion.svg') }}" alt="request.png">
                         <p>طلب تبرع</p>
                     </a>
 
-                    <!-- User Dropdown Menu with improved styling -->
+                    <!-- User Dropdown Menu -->
                     <div class="dropdown ml-auto">
-                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn donate dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ Auth::user()->name }}
                         </button>
                         <div class="dropdown-menu dropdown-menu-right shadow-lg rounded-lg" aria-labelledby="userDropdown">
-                            <a class="dropdown-item text-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a class="dropdown-item text-primary" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 تسجيل الخروج
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

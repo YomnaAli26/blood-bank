@@ -12,9 +12,9 @@
                 <div class="carousel-item carousel-1 active">
                     <div class="container info">
                         <div class="col-lg-5">
-                            <h3>{{ $settings['intro_header'] }}</h3>
+                            <h3>{{ isset($settings['intro_header']) }}</h3>
                             <p>
-                                {{ $settings['intro_body'] }}
+                                {{ isset($settings['intro_body']) }}
                             </p>
                             <a href="{{ route("site.about") }}">المزيد</a>
                         </div>
@@ -29,7 +29,7 @@
         <div class="container">
             <div class="col-lg-6 text-center">
                 <p>
-                    <span>بنك الدم</span>{{ $settings['about_intro'] }}
+                    <span>بنك الدم</span>{{ isset($settings['about_intro']) }}
                 </p>
             </div>
         </div>
@@ -137,13 +137,13 @@
         <div class="container">
             <div class="col-md-7">
                 <div class="title">
-                    <h3>{{ $settings['contact_header'] }}</h3>
+                    <h3>{{ isset($settings['contact_header']) }}</h3>
                 </div>
-                <p class="text">{{ $settings['contact_body'] }}م</p>
+                <p class="text">{{ isset($settings['contact_body']) }}م</p>
                 <div class="row whatsapp">
-                    <a href="{{ $settings['wats_link'] }}">
+                    <a href="{{ isset($settings['wats_link']) }}">
                         <img src="{{asset('site/')}}/imgs/whats.png">
-                        <p dir="ltr">{{ $settings['contact_phone'] }}</p>
+                        <p dir="ltr">{{ isset($settings['contact_phone']) }}</p>
                     </a>
                 </div>
             </div>
