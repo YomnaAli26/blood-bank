@@ -3,13 +3,14 @@
 namespace App\Services;
 
 use App\Models\Category;
+use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\PostRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class PostService
 {
-    public function __construct(public PostRepositoryInterface $postRepository)
+    public function __construct(public PostRepositoryInterface $postRepository,public CategoryRepositoryInterface $categoryRepository)
     {
     }
 
@@ -45,4 +46,11 @@ class PostService
        return $this->postRepository->getCategoryPosts($category,$postId);
 
     }
+    public function  getCategoriesWithPosts(): Collection
+    {
+       return $this->categoryRepository->getCategoriesWithPosts();
+
+    }
+
+
 }

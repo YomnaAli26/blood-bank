@@ -14,7 +14,7 @@ class PostController extends Controller
     }
     public function index()
     {
-        $posts = $this->postService->getPosts();
+        $categories = $this->postService->getCategoriesWithPosts();
         return view('site.posts.index',get_defined_vars());
     }
     public function show($id)
