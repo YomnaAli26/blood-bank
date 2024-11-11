@@ -39,9 +39,9 @@ class PostController extends Controller
 
     }
 
-    public function toggleFavouritePost(Request $request): JsonResponse
+    public function toggleFavouritePost($id): JsonResponse
     {
-        $toggled = $this->postService->toggleFavouritePost($request);
+        $toggled = $this->postService->toggleFavouritePost($id);
 
         if ($toggled) {
             return responseJson(message: "Post has been added to favorites");

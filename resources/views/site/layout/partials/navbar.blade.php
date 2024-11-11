@@ -18,7 +18,7 @@
                             <a class="nav-link" href="{{ route('site.about') }}">عن بنك الدم</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">المقالات</a>
+                            <a class="nav-link" href="{{ route('site.posts.index') }}">المقالات</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('site.requests.index') }}">طلبات التبرع</a>

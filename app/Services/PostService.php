@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Category;
 use App\Repositories\Interfaces\PostRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class PostService
@@ -29,17 +31,18 @@ class PostService
 
     }
 
-    public function toggleFavouritePost(Request $request): bool
+    public function toggleFavouritePost($id): bool
     {
-        $request->validate([
-            'post_id' => 'required|integer|exists:posts,id'
-        ]);
-        $postId = $request->post('post_id');
-        $toggled = auth()->user()->posts()->toggle($postId);
-        if (in_array($postId, $toggled['attached'])) {
+        $toggled = auth()->user()->posts()->toggle($id);
+        if (in_array($id, $toggled['attached'])) {
             return true;
         }
         return false;
+
+    }
+    public function categoryPosts(Category $category,$postId): Collection
+    {
+       return $this->postRepository->getCategoryPosts($category,$postId);
 
     }
 }

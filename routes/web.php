@@ -13,22 +13,13 @@ Route::group(['as'=>'site.','middleware'=>'auth'], function () {
     Route::view('/who-are', 'site.who-are')->name('who-are');
     Route::view('/contact-us', 'site.contact-us')->name('contact-us');
     Route::post('/contact-us', [MainController::class,'contactUs'])->name('contact-us');
-    Route::get('/posts/{post}',[PostController::class,'show'])->name('posts.show');
-    Route::post('toggle-favourite-post', [PostController::class, 'toggle'])->name('posts.toggle');
+    Route::resource('posts', PostController::class)->only('index','show');
+    Route::get('toggle-favourite-post/{id}', [PostController::class, 'toggle'])->name('posts.toggle');
+    Route::get('category-posts/{category}', [PostController::class, 'categoryPosts'])->name('posts.category');
+    Route::resource('requests', DonationRequestController::class)->only('index','show');
     Route::get('/',HomeController::class)->name('home');
-    Route::get('/requests/{request}',[DonationRequestController::class,'show'])->name('requests.show');
-    Route::get('/requests',[DonationRequestController::class,'index'])->name('requests.index');
+
 
 });
 
 
-//
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
-//
-//Route::middleware('auth')->group(function () {
-//    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-//});

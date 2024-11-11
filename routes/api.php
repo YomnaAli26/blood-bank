@@ -35,7 +35,7 @@ Route::group(['prefix' => 'v1/'], function () {
         Route::apiResource('posts', PostController::class)
             ->only(['index', 'show']);
         Route::get('favourite-posts', [PostController::class, 'getFavouritePosts']);
-        Route::post('toggle-favourite-post', [PostController::class, 'toggleFavouritePost']);
+        Route::post('toggle-favourite-post/{id}', [PostController::class, 'toggleFavouritePost']);
         Route::apiResource('donation-requests', DonationRequestController::class)
             ->only(['index', 'show','store']);
         Route::post('fcm-token', [FcmTokenController::class,'store']);

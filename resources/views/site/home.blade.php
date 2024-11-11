@@ -52,8 +52,9 @@
                                     <img src="{{ $post->getFirstMediaUrl('image') }}" class="card-img-top" alt="...">
                                     <a href="{{ route('site.posts.show', $post->id) }}" class="click">المزيد</a>
                                 </div>
-                                <a href="#" class="favourite">
-                                    <i class="far fa-heart"></i>
+
+                                <a href="" class="favourite"  data-post-id="{{$post->id}}">
+                                    <i class="{{$post->isFavourite ? 'fas' : 'far'}} fa-heart"></i>
                                 </a>
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $post->title }}</h5>
@@ -126,7 +127,7 @@
                     @endforeach
                 </div>
                 <div class="more">
-                    <a href="donation-requests.html">المزيد</a>
+                    <a href="{{ route("site.requests.show",$donationRequest->id) }}">المزيد</a>
                 </div>
             </div>
         </div>
@@ -218,10 +219,33 @@
                                             <li><span>مستشفى:</span> ${request.hospital_name}</li>
                                             <li><span>المدينة:</span> ${request.city.name}</li>
                                         </ul>
-                                        <a href="inside-request.html">التفاصيل</a>
+                                <a href="{{ route('site.requests.show', ':request') }}" onclick="this.href=this.href.replace(':request', ${request.id})">التفاصيل</a>
+
                                     </div>
                                 `);
                             });
+                        }
+                    },
+                    error: function () {
+                        alert('حدث خطأ أثناء معالجة الطلب.');
+                    }
+                });
+            });
+
+            $('.favourite').on('click', function (e) {
+                e.preventDefault();
+
+                var post_id = $(this).data('post-id');
+                var icon = $(this).find('i');
+
+                $.ajax({
+                    url: "{{ route('site.posts.toggle', ':id') }}".replace(':id', post_id),
+                    method: "GET",
+                    success: function (response) {
+                        if (response.toggled) {
+                            icon.removeClass('far').addClass('fas');
+                        } else {
+                            icon.removeClass('fas').addClass('far');
                         }
                     },
                     error: function () {

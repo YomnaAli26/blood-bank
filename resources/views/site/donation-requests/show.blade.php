@@ -1,5 +1,5 @@
-
 @extends("site.layout.master")
+@section("class_body","inside-request")
 @section("content")
     <div class="ask-donation">
         <div class="container">
