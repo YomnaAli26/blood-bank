@@ -72,25 +72,31 @@
         // Event listener for governorate selection change
         $("#governorates").change(function() {
             var governorateId = $(this).val();  // Get selected governorate ID
-            $("#cities").empty().append('<option selected disabled hidden value="">المدينة</option>');  // Clear and reset city dropdown
+            if(governorateId)
+            {
+                $("#cities").empty().append('<option selected disabled hidden value="">المدينة</option>');  // Clear and reset city dropdown
 
-            $.ajax({
-                url: `{{ route("cities",':id') }}`.replace(':id',governorateId),  // Adjust URL format with governorateId
-                type: 'GET',
-                success: function(response) {
-                    if (response.data) {
-                        // Populate cities dropdown with response data
-                        response.data.forEach(function(city) {
-                            $("#cities").append(new Option(city.name, city.id));
-                        });
-                    } else {
-                        console.error("No cities found for the selected governorate.");
+                $.ajax({
+                    url: `{{ route("cities",':id') }}`.replace(':id',governorateId),  // Adjust URL format with governorateId
+                    type: 'GET',
+                    success: function(response) {
+                        if (response.data) {
+                            // Populate cities dropdown with response data
+                            response.data.forEach(function(city) {
+                                $("#cities").append(new Option(city.name, city.id));
+                            });
+                        } else {
+                            console.error("No cities found for the selected governorate.");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching cities:", error);
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error fetching cities:", error);
-                }
-            });
+                });
+            }
+
+
+
         });
     </script>
 @endpush

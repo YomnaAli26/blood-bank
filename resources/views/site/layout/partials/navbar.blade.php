@@ -32,7 +32,7 @@
                     </ul>
 
                     <!-- Donate Button -->
-                    <a href="#" class="donate mx-2">
+                    <a href="{{ route("site.requests.create") }}" class="donate mx-2">
                         <img src="{{ asset('site/imgs/transfusion.svg') }}" alt="request.png">
                         <p>طلب تبرع</p>
                     </a>

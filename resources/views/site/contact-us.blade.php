@@ -24,20 +24,20 @@
                             </div>
                             <div class="details">
                                 <ul>
-                                    <li><span>الجوال:</span> {{ isset($settings['contact_phone']) ? $settings['contact_phone'] : '' }}</li>
-                                    <li><span>فاكس:</span> {{ isset($settings['contact_fax']) ? $settings['contact_fax'] : '' }}</li>
-                                    <li><span>البريد الإلكترونى:</span> {{ isset($settings['contact_email']) ? $settings['contact_email'] : '' }}</li>
+                                    <li><span>الجوال:</span> {{ ($settings['contact_phone']) ?? '' }}</li>
+                                    <li><span>فاكس:</span> {{ ($settings['contact_fax']) ?? '' }}</li>
+                                    <li><span>البريد الإلكترونى:</span> {{ ($settings['contact_email']) ?? ''}}</li>
                                 </ul>
                             </div>
                             <div class="social">
                                 <h4>تواصل معنا</h4>
                                 <div class="icons" dir="ltr">
-                                    <div class="out-icon"><a href="{{ isset($settings['facebook_link']) ? $settings['facebook_link'] : '#' }}"><img src="{{asset('site') }}/imgs/001-facebook.svg"></a></div>
-                                    <div class="out-icon"><a href="{{ isset($settings['twitter_link']) ? $settings['twitter_link'] : '#' }}"><img src="{{asset('site') }}/imgs/002-twitter.svg"></a></div>
-                                    <div class="out-icon"><a href="{{ isset($settings['youtube_link']) ? $settings['youtube_link'] : '#' }}"><img src="{{asset('site') }}/imgs/003-youtube.svg"></a></div>
-                                    <div class="out-icon"><a href="{{ isset($settings['instagram_link']) ? $settings['instagram_link'] : '#' }}"><img src="{{asset('site') }}/imgs/004-instagram.svg"></a></div>
-                                    <div class="out-icon"><a href="{{ isset($settings['whatsapp_link']) ? $settings['whatsapp_link'] : '#' }}"><img src="{{asset('site') }}/imgs/005-whatsapp.svg"></a></div>
-                                    <div class="out-icon"><a href="{{ isset($settings['google_link']) ? $settings['google_link'] : '#' }}"><img src="{{asset('site') }}/imgs/006-google-plus.svg"></a></div>
+                                    <div class="out-icon"><a href="{{ ($settings['facebook_link']) ?? ''  }}"><img src="{{asset('site') }}/imgs/001-facebook.svg"></a></div>
+                                    <div class="out-icon"><a href="{{ ($settings['twitter_link']) ?? ''   }}"><img src="{{asset('site') }}/imgs/002-twitter.svg"></a></div>
+                                    <div class="out-icon"><a href="{{ ($settings['youtube_link']) ?? '' }}"><img src="{{asset('site') }}/imgs/003-youtube.svg"></a></div>
+                                    <div class="out-icon"><a href="{{ ($settings['instagram_link']) ?? ''  }}"><img src="{{asset('site') }}/imgs/004-instagram.svg"></a></div>
+                                    <div class="out-icon"><a href="{{ ($settings['whatsapp_link']) ?? ''  }}"><img src="{{asset('site') }}/imgs/005-whatsapp.svg"></a></div>
+                                    <div class="out-icon"><a href="{{ ($settings['google_link']) ?? ''  }}"><img src="{{asset('site') }}/imgs/006-google-plus.svg"></a></div>
                                 </div>
                             </div>
                         </div>

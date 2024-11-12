@@ -23,7 +23,7 @@ class StoreDonationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'patient_name' => 'required|string|max:255',
+            'patient_name' => 'required|string|min:2|max:255',
             'patient_phone' => 'required|string|regex:/^[0-9]{10,15}$/',
             'patient_age' => 'required|integer|min:1|max:120',
             'blood_type_id' => 'required|exists:blood_types,id',

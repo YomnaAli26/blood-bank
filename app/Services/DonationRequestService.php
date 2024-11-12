@@ -20,7 +20,7 @@ class DonationRequestService
     public function getRequests($filters = [],$relations = [])
     {
 
-        return $this->donationRequestRepository->filter($filters,$relations)->get();
+        return $this->donationRequestRepository->filter($filters,$relations)->paginate(3);
     }
 
     public function showRequest($id)
@@ -57,7 +57,7 @@ class DonationRequestService
             } catch (\Exception $exception) {
                 DB::rollBack();
                 return [
-                    'status' => true,
+                    'status' => false,
                     'message' => $exception->getMessage(),
                 ];
             }

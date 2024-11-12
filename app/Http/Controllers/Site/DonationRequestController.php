@@ -41,6 +41,28 @@ class DonationRequestController extends Controller
 
     }
 
+    public function create()
+    {
+        $bloodTypes = $this->bloodTypeService->getBloodTypes();
+        $cities = $this->cityService->getCities();
+        return view("site.donation-requests.create",get_defined_vars());
+
+    }
+    public function store(StoreDonationRequest $donationRequest)
+    {
+
+        $request = $this->donationRequestService->storeRequest($donationRequest);
+        if (!$request['status']) {
+            return to_route("site.requests.index")->with([
+                'danger' => 'There was an issue creating the donation request. Please try again.'
+            ]);
+        }
+        return to_route("site.requests.index")->with([
+            'success'=>'Donation Request created successfully'
+        ]);
+
+
+    }
     public function show($id)
     {
         $donationRequest = $this->donationRequestService->showRequest($id);
