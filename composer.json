@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.9",
         "spatie/laravel-medialibrary": "^11.9",
         "spatie/laravel-permission": "*",
+        "spatie/laravel-translatable": "^6.8",
         "twilio/sdk": "^8.3"
     },
     "require-dev": {

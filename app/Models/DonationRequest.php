@@ -5,10 +5,12 @@ namespace App\Models;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
+use Spatie\Translatable\HasTranslations;
 
 class DonationRequest extends Model
 {
-    use FilterTrait;
+    use FilterTrait,HasTranslations;
+    public $translatable = ['patient_name','patient_phone','patient_age','bags_num','hospital_address','notes'];
 
     protected $table = 'donation_requests';
     public $timestamps = true;

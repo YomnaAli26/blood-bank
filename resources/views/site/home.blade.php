@@ -127,7 +127,7 @@
                     @endforeach
                 </div>
                 <div class="more">
-                    <a href="{{ route("site.requests.show",$donationRequest->id) }}">المزيد</a>
+                    <a href="{{ route("site.requests.index") }}">المزيد</a>
                 </div>
             </div>
         </div>
@@ -188,7 +188,8 @@
     <script>
         $(document).ready(function () {
             $('#searchForm').on('submit', function (e) {
-                e.preventDefault(); // Prevent the default form submission
+                e.preventDefault();
+                console.log("ddd")
 
                 // Get the selected values from the dropdowns
                 var bloodType = $('#blood_type_id').val();

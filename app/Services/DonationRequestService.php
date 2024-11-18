@@ -19,8 +19,7 @@ class DonationRequestService
 
     public function getRequests($filters = [],$relations = [])
     {
-
-        return $this->donationRequestRepository->filter($filters,$relations)->paginate(3);
+        return $this->donationRequestRepository->filter($filters,$relations)->get();
     }
 
     public function showRequest($id)
