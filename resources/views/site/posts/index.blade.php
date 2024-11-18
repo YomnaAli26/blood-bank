@@ -12,42 +12,40 @@
                 </nav>
             </div>
 
-            <!-- Loop through each category that has posts -->
-            @foreach($categories as $category)
-                <div class="articles">
-                    <div class="title">
-                        <div class="head-text">
-                            <h2>{{ $category->name }}</h2>
-                        </div>
+            <div class="articles">
+                <div class="title">
+                    <div class="head-text">
+                        <h2>المقالات</h2>
                     </div>
-
-                    <!-- Display Posts in each category -->
-                    <div class="view">
-                        <div class="row">
-                            <div class="owl-carousel articles-carousel">
-                                @foreach($category->posts as $post)
-                                    <div class="card">
-                                        <div class="photo">
-                                            <img src="{{ $post->getFirstMediaUrl('image') }}" class="card-img-top" alt="...">
-                                            <a href="{{ route('site.posts.show', $post->id) }}" class="click">المزيد</a>
-                                        </div>
-                                        <a href="" class="favourite"  data-post-id="{{$post->id}}">
-                                            <i class="{{$post->isFavourite ? 'fas' : 'far'}} fa-heart"></i>
-                                        </a>
-
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ $post->title }}</h5>
-                                            <p class="card-text">
-                                                {{ $post->description }}
-                                            </p>
-                                        </div>
+                </div>
+                <div class="view">
+                    <div class="row">
+                        <!-- Set up your HTML -->
+                        <div class="owl-carousel articles-carousel">
+                            @foreach($posts as $post)
+                                <div class="card">
+                                    <div class="photo">
+                                        <img src="{{ $post->getFirstMediaUrl('image') }}" class="card-img-top" alt="...">
+                                        <a href="{{ route("site.posts.show",$post->id) }}" class="click">المزيد</a>
                                     </div>
-                                @endforeach
-                            </div>
+                                    <a href="" class="favourite"  data-post-id="{{$post->id}}">
+                                        <i class="{{$post->isFavourite ? 'fas' : 'far'}} fa-heart"></i>
+                                    </a>
+
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $post->title }}</h5>
+                                        <p class="card-text">
+                                            {{ $post->description }}
+                                        </p>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
-            @endforeach
+            </div>
+
+        </div>
         </div>
     </div>
 @endsection

@@ -13,8 +13,4 @@ class CategoryRepository
     {
         parent::__construct($category);
     }
-    public function getCategoriesWithPosts(): Collection
-    {
-        return Category::query()->with('posts')->has('posts')->get();
-    }
 }

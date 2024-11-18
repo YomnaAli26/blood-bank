@@ -46,11 +46,7 @@ class PostService
        return $this->postRepository->getCategoryPosts($category,$postId);
 
     }
-    public function  getCategoriesWithPosts(): Collection
-    {
-       return $this->categoryRepository->getCategoriesWithPosts();
 
-    }
 
 
 }
